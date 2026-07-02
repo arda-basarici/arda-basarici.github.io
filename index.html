@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arda Başarıcı — AI/ML Engineering</title>
+<style>
+  :root{
+    --ink:#1a1a2e; --muted:#5b6472; --line:#e6e8ee; --bg:#fbfcfe;
+    --accent:#0d47a1; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:56px 22px 80px}
+  header{margin-bottom:14px}
+  h1{font-size:30px; line-height:1.2; margin:0 0 8px}
+  .tag{font-size:17px; color:var(--muted); margin:0 0 4px}
+  .tax{font-size:15px; color:var(--muted); margin:0}
+  .links{margin:18px 0 8px; display:flex; flex-wrap:wrap; gap:10px}
+  .links a{
+    text-decoration:none; color:var(--accent); border:1px solid var(--line);
+    padding:6px 12px; border-radius:20px; font-size:14px; background:#fff;
+  }
+  .links a:hover{border-color:var(--accent)}
+  hr{border:none; border-top:1px solid var(--line); margin:34px 0}
+  h2{font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 18px}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px; margin-bottom:16px;
+  }
+  .card h3{margin:0 0 6px; font-size:18px}
+  .card p{margin:0 0 12px; color:var(--muted); font-size:15px}
+  .card .row{display:flex; flex-wrap:wrap; gap:8px}
+  .card .row a{
+    text-decoration:none; font-size:13.5px; color:var(--accent);
+    border:1px solid var(--line); padding:4px 11px; border-radius:16px;
+  }
+  .card .row a:hover{border-color:var(--accent)}
+  .phase{font-size:12px; color:#9aa2b1; float:right; font-weight:600; letter-spacing:.04em}
+  footer{margin-top:40px; font-size:13px; color:#9aa2b1}
+  footer code{background:#eef1f6; padding:1px 5px; border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Arda Başarıcı</h1>
+    <p class="tag">Math + 3&nbsp;yrs game dev → AI/ML engineering.</p>
+    <p class="tax">A bias for honest evaluation over shiny demos. Building a portfolio in public.</p>
+    <div class="links">
+      <a href="https://github.com/arda-basarici">GitHub</a>
+      <!-- TODO: verify this LinkedIn vanity URL -->
+      <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
+      <!-- TODO: add your X handle, e.g. https://x.com/yourhandle -->
+    </div>
+  </header>
+
+  <hr>
+
+  <h2>Projects</h2>
+
+  <div class="card">
+    <span class="phase">PHASE 3 · RL</span>
+    <h3>Betting Against the Noise</h3>
+    <p>Can an RL agent rediscover Kelly bet-sizing on blackjack&rsquo;s thin, countable edge? A DQN
+       bettor vs. the analytic Kelly ladder, measured four ways. The answer is no &mdash; and a
+       rigorous account of exactly why (a signal buried fifty-deep in per-hand noise).</p>
+    <div class="row">
+      <a href="https://github.com/arda-basarici/ai-journey/blob/main/phase3-deep-learning/blackjack-rl/betting-against-the-noise.pdf">Report (PDF)</a>
+      <a href="https://github.com/arda-basarici/ai-journey/tree/main/phase3-deep-learning/blackjack-rl">Code</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="phase">PHASE 3 · DL</span>
+    <h3>From Table to Network</h3>
+    <p>Tabular Monte-Carlo vs. a DQN for blackjack play &mdash; what neural generalization repairs in
+       coverage-starved cells, and what it distorts in return.</p>
+    <div class="row">
+      <!-- TODO: point at the exact DQN report PDF once you confirm its filename -->
+      <a href="https://github.com/arda-basarici/ai-journey/tree/main/phase3-deep-learning/blackjack-rl">Code &amp; report</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="phase">PHASE 2</span>
+    <h3>pathfinding-ml</h3>
+    <p>A learned A* heuristic, honestly evaluated: a Simpson&rsquo;s-paradox pooling trap, a
+       regime-tag feature, and two opposite failures under distribution shift &mdash; measured on two
+       axes never collapsed into one score.</p>
+    <div class="row">
+      <a href="https://github.com/arda-basarici/ai-journey/blob/main/phase2-data/pathfinding-ml/pathfinding_report.pdf">Report (PDF)</a>
+      <a href="https://github.com/arda-basarici/ai-journey/tree/main/phase2-data/pathfinding-ml">Code</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="phase">PHASE 2</span>
+    <h3>Steam Review Intelligence</h3>
+    <p>298k reviews across 50 games and 30 languages; four findings, each validated
+       <em>within-group</em> rather than pooled. A pandas / pandera / Parquet data pipeline.</p>
+    <div class="row">
+      <a href="https://github.com/arda-basarici/ai-journey/blob/main/phase2-data/steam-reviews/steam_review_report.pdf">Report (PDF)</a>
+      <a href="https://github.com/arda-basarici/ai-journey/tree/main/phase2-data/steam-reviews">Code</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="phase">PHASE 2</span>
+    <h3>Monte Carlo Blackjack Simulator</h3>
+    <p>A configurable ~80M-hand engine with pluggable strategies and card counting &mdash; the
+       measurement instrument the Phase-3 RL work is built on.</p>
+    <div class="row">
+      <a href="https://github.com/arda-basarici/ai-journey/tree/main/phase2-data/blackjack-sim">Code &amp; report</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>This page and the <code>/&lt;project&gt;</code> redirect files are the single place to update
+      links when repositories move &mdash; published posts and PDFs point here, not at deep repo paths.</p>
+  </footer>
+
+</div>
+</body>
+</html>
