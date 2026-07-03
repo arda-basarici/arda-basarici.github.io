@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About — Arda Başarıcı"
+  description="Mathematics → game development → Data, ML, and AI. Building a portfolio in public."
+>
+  <article>
+    <h1>About</h1>
+
+    <p class="lede">I enjoy moving between concrete problems and the abstractions that connect them.</p>
+
+    <p>
+      What interests me most isn't just finding an answer, but understanding the structure
+      underneath it: what assumptions it depends on, what information it preserves, and whether
+      the conclusions are actually justified by the evidence.
+    </p>
+
+    <p>
+      That curiosity has taken me from mathematics to software development, and more recently
+      into data, machine learning, simulation, and AI systems.
+    </p>
+
+    <h2>The path</h2>
+
+    <p>
+      I studied mathematics at Boğaziçi University — a B.Sc. followed by graduate coursework —
+      and worked as a teaching assistant, leading problem-solving sessions across seven
+      undergraduate courses. Over the following years I worked as a developer in the gaming
+      industry, building and shipping 20+ production games and interactive experiences while
+      learning how to turn ideas into working systems under real-world constraints.
+    </p>
+
+    <h2>Now</h2>
+
+    <p>
+      Today I'm exploring Data, ML, and AI through a growing portfolio of projects, reports,
+      and experiments. My work often starts with a specific question and gradually expands into
+      something broader: understanding decision systems, investigating model behavior, examining
+      uncertainty, or looking for the underlying patterns that connect seemingly different
+      problems.
+    </p>
+
+    <p>
+      I enjoy building models, simulations, and analytical tools, then digging into the results
+      to understand not only what happened, but why. Along the way I document the process
+      publicly, including the mistakes, dead ends, and lessons learned.
+    </p>
+
+    <h2>Current areas of focus</h2>
+
+    <ul>
+      <li>Data analysis and statistical reasoning</li>
+      <li>Machine learning and reinforcement learning</li>
+      <li>Simulation and decision systems</li>
+      <li>Experiment design and evaluation</li>
+      <li>AI-assisted software development</li>
+    </ul>
+
+    <p>
+      I'm building this journey in public — through <a href="/projects/">projects and technical
+      reports</a> here, and posts on
+      <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>.
+    </p>
+
+    <h2>Elsewhere</h2>
+
+    <div class="row">
+      <a href="https://github.com/arda-basarici">GitHub</a>
+      <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
+      <a href="mailto:ardabasarici@gmail.com">Email</a>
+    </div>
+  </article>
+</Base>
+
+<style>
+  h1 {
+    font-size: 28px;
+    margin: 0 0 18px;
+  }
+  h2 {
+    font-size: 18px;
+    margin: 28px 0 10px;
+  }
+  .lede {
+    font-size: 18px;
+  }
+  p,
+  li {
+    color: var(--ink);
+  }
+  ul {
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  a {
+    color: var(--accent);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .row a {
+    text-decoration: none;
+    font-size: 13.5px;
+    border: 1px solid var(--line);
+    padding: 4px 11px;
+    border-radius: 16px;
+  }
+  .row a:hover {
+    border-color: var(--accent);
+  }
+</style>

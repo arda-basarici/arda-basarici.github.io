@@ -1,137 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arda Başarıcı — AI/ML Engineering</title>
-<style>
-  :root{
-    --ink:#1a1a2e; --muted:#5b6472; --line:#e6e8ee; --bg:#fbfcfe;
-    --accent:#0d47a1; --card:#ffffff;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:760px; margin:0 auto; padding:56px 22px 80px}
-  header{margin-bottom:14px}
-  h1{font-size:30px; line-height:1.2; margin:0 0 8px}
-  .tag{font-size:17px; color:var(--muted); margin:0 0 4px}
-  .tax{font-size:15px; color:var(--muted); margin:0}
-  .links{margin:18px 0 8px; display:flex; flex-wrap:wrap; gap:10px}
-  .links a{
-    text-decoration:none; color:var(--accent); border:1px solid var(--line);
-    padding:6px 12px; border-radius:20px; font-size:14px; background:#fff;
-  }
-  .links a:hover{border-color:var(--accent)}
-  hr{border:none; border-top:1px solid var(--line); margin:34px 0}
-  h2{font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 18px}
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:12px;
-    padding:18px 20px; margin-bottom:16px;
-  }
-  .card h3{margin:0 0 6px; font-size:18px}
-  .card p{margin:0 0 12px; color:var(--muted); font-size:15px}
-  .card .row{display:flex; flex-wrap:wrap; gap:8px}
-  .card .row a{
-    text-decoration:none; font-size:13.5px; color:var(--accent);
-    border:1px solid var(--line); padding:4px 11px; border-radius:16px;
-  }
-  .card .row a:hover{border-color:var(--accent)}
-  /* .phase reserved for later — phase tags removed from cards for now */
-  .phase{font-size:12px; color:#9aa2b1; float:right; font-weight:600; letter-spacing:.04em}
-  footer{margin-top:40px; font-size:13px; color:#9aa2b1}
-  footer code{background:#eef1f6; padding:1px 5px; border-radius:4px}
-</style>
-</head>
-<body>
-<div class="wrap">
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { featured } from '../data/featured';
+import { seriesInfo } from '../data/series';
 
+type Project = CollectionEntry<'projects'>;
+
+const all = await getCollection('projects', ({ data }) => !data.draft);
+const byId = new Map(all.map((p) => [p.id, p]));
+
+const featuredBlocks = featured.map((entry) => {
+  if (entry.kind === 'series') {
+    const members = all
+      .filter((p) => p.data.series === entry.id)
+      .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+    return { kind: 'series' as const, id: entry.id, info: seriesInfo[entry.id], members };
+  }
+  return { kind: 'project' as const, id: entry.id, project: byId.get(entry.id) as Project };
+});
+---
+
+<Base
+  title="Arda Başarıcı — AI/ML Engineering"
+  description="Mathematics → game development → Data, ML, and AI. A bias for honest evaluation over shiny demos."
+>
   <header>
     <h1>Arda Başarıcı</h1>
-    <p class="tag">Math + 3&nbsp;yrs game dev → AI/ML engineering.</p>
-    <p class="tax">A bias for honest evaluation over shiny demos. Building a portfolio in public.</p>
+    <p class="tag">Mathematics → 3 yrs game dev → Data, ML &amp; AI engineering.</p>
+    <p class="tax">
+      I like understanding the structure underneath an answer — what it assumes, and whether the
+      evidence actually supports it. A bias for honest evaluation over shiny demos; building a
+      portfolio in public.
+    </p>
     <div class="links">
       <a href="https://github.com/arda-basarici">GitHub</a>
       <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
+      <a href="/about/">More about me →</a>
     </div>
   </header>
 
-  <hr>
+  <hr />
 
-  <h2>Projects</h2>
+  <h2>Featured work</h2>
 
-  <div class="card">
-    <h3>Betting Against the Noise</h3>
-    <p>Can an RL agent rediscover Kelly bet-sizing on blackjack&rsquo;s thin, countable edge? A DQN
-       bettor vs. the analytic Kelly ladder, measured four ways. The answer is no &mdash; and a
-       rigorous account of exactly why (a signal buried fifty-deep in per-hand noise).</p>
-    <div class="row">
-      <a href="/blackjack-betting">Report (PDF)</a>
-      <a href="/blackjack-rl-code">Code</a>
-    </div>
-  </div>
+  {
+    featuredBlocks.map((block) =>
+      block.kind === 'series' ? (
+        <div class="card">
+          <h3>{block.info?.title ?? block.id}</h3>
+          {block.info && <p>{block.info.blurb}</p>}
+          <ol class="parts">
+            {block.members.map((p) => (
+              <li>
+                <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : (
+        <div class="card">
+          <h3>
+            <a href={`/projects/${block.project.id}/`}>{block.project.data.title}</a>
+          </h3>
+          <p>{block.project.data.summary}</p>
+          <div class="row">
+            {block.project.data.links.report && (
+              <a href={block.project.data.links.report}>Report (PDF)</a>
+            )}
+            {block.project.data.links.code && <a href={block.project.data.links.code}>Code</a>}
+          </div>
+        </div>
+      )
+    )
+  }
 
-  <div class="card">
-    <h3>From Table to Network</h3>
-    <p>Tabular Monte-Carlo vs. a DQN for blackjack play &mdash; what neural generalization repairs in
-       coverage-starved cells, and what it distorts in return.</p>
-    <div class="row">
-      <a href="/table-to-network">Report (PDF)</a>
-      <a href="/blackjack-rl-code">Code</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>The Policy Audit</h3>
-    <p>Can tabular Monte-Carlo control rediscover blackjack&rsquo;s proven-optimal strategy table from
-       win/loss alone? It recovers ~93% &mdash; and forcing coverage of rare states collapses the
-       genuine disagreements 30 &rarr; 9, all near-ties: the residual was the cost of experience, not
-       the method.</p>
-    <div class="row">
-      <a href="/policy-audit">Report (PDF)</a>
-      <a href="/blackjack-rl-code">Code</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>pathfinding-ml</h3>
-    <p>A learned A* heuristic, honestly evaluated: a Simpson&rsquo;s-paradox pooling trap, a
-       regime-tag feature, and two opposite failures under distribution shift &mdash; measured on two
-       axes never collapsed into one score.</p>
-    <div class="row">
-      <a href="/pathfinding">Report (PDF)</a>
-      <a href="/pathfinding-code">Code</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Steam Review Intelligence</h3>
-    <p>298k reviews across 50 games and 30 languages; four findings, each validated
-       <em>within-group</em> rather than pooled. A pandas / pandera / Parquet data pipeline.</p>
-    <div class="row">
-      <a href="/steam-reviews">Report (PDF)</a>
-      <a href="/steam-reviews-code">Code</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Monte Carlo Blackjack Simulator</h3>
-    <p>A configurable ~80M-hand engine with pluggable strategies and card counting &mdash; the
-       measurement instrument the blackjack RL work is built on.</p>
-    <div class="row">
-      <a href="/blackjack-sim">Report (PDF)</a>
-      <a href="/blackjack-sim-code">Code</a>
-    </div>
-  </div>
+  <p class="all">
+    <a href="/projects/">All projects →</a>
+  </p>
 
   <footer>
-    <p>This page and the <code>/&lt;project&gt;</code> redirect files are the single place to update
-      links when repositories move &mdash; published posts and PDFs point here, not at deep repo paths.</p>
+    <p>
+      This site is the stable front door: published posts and report PDFs link here, not at deep
+      repo paths, so links keep working when repositories move.
+    </p>
   </footer>
+</Base>
 
-</div>
-</body>
-</html>
+<style>
+  h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .tag {
+    font-size: 17px;
+    color: var(--muted);
+    margin: 0 0 4px;
+  }
+  .tax {
+    font-size: 15px;
+    color: var(--muted);
+    margin: 0;
+  }
+  .links {
+    margin: 18px 0 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .links a {
+    text-decoration: none;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    background: #fff;
+  }
+  .links a:hover {
+    border-color: var(--accent);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 34px 0;
+  }
+  h2 {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+  }
+  .card h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .card h3 a:hover {
+    color: var(--accent);
+  }
+  .card p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .parts {
+    margin: 0;
+    padding-left: 22px;
+    font-size: 15px;
+  }
+  .parts li {
+    margin-bottom: 3px;
+  }
+  .parts a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .parts a:hover {
+    text-decoration: underline;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .row a {
+    text-decoration: none;
+    font-size: 13.5px;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 4px 11px;
+    border-radius: 16px;
+  }
+  .row a:hover {
+    border-color: var(--accent);
+  }
+  .all {
+    margin: 8px 0 0;
+  }
+  .all a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 15px;
+  }
+  footer {
+    margin-top: 40px;
+    font-size: 13px;
+    color: #9aa2b1;
+  }
+</style>
