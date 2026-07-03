@@ -27,4 +27,17 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const articles = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+  schema: z.object({
+    title: z.string(),
+    // One-sentence summary: shown on the index and used as the meta description.
+    description: z.string(),
+    date: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    // Drafts build nowhere: excluded from the index and from route generation.
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { projects, articles };

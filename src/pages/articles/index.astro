@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Base title="Articles — Arda Başarıcı" description="Articles by Arda Başarıcı.">
+  <h1>Articles</h1>
+
+  {articles.length === 0 && <p class="empty">Nothing here yet — first article coming soon.</p>}
+
+  <ul class="list">
+    {
+      articles.map((a) => (
+        <li>
+          <a href={`/articles/${a.id}/`}>{a.data.title}</a>
+          <time datetime={a.data.date.toISOString()}>{formatDate(a.data.date)}</time>
+          <p>{a.data.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
+
+<style>
+  h1 {
+    font-size: 28px;
+    margin: 0 0 24px;
+  }
+  .empty {
+    color: var(--muted);
+  }
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .list li {
+    margin-bottom: 22px;
+  }
+  .list a {
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .list a:hover {
+    color: var(--accent);
+  }
+  time {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 2px 0 4px;
+  }
+  .list p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+</style>

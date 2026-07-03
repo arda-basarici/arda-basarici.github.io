@@ -14,6 +14,10 @@ route or `/apps/…` entry to avoid collisions. Targets are under
 - `/steam-reviews` → phase2-data/steam-reviews/steam_review_report.pdf
 - `/blackjack-sim` → phase2-data/blackjack-sim/blackjack_analysis_report.pdf
 
+## Site pages (claimed by the Astro site, not redirects)
+- `/projects` (+ `/projects/<slug>`), `/about`, `/articles` (+ `/articles/<slug>`)
+- reserved for future app redirects: `/apps/<name>`
+
 ## Repos
 - `/blackjack-rl-code` → phase3-deep-learning/blackjack-rl
 - `/blackjack-sim-code` → phase2-data/blackjack-sim
