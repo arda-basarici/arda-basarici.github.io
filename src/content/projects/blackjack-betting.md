@@ -6,6 +6,10 @@ summary: >-
   of exactly why (a signal buried fifty-deep in per-hand noise).
 series: blackjack-rl
 seriesOrder: 4
+figure: ../../assets/projects/blackjack-betting.png
+figureAlt: >-
+  Two nearly identical reward distributions overlaid: the edge at true count +6 shifts the mean
+  by only 0.021 standard deviations — visually indistinguishable from no edge.
 links:
   report: /blackjack-betting
   code: /blackjack-rl-code

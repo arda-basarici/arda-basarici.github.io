@@ -1,5 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { featured } from '../data/featured';
 import { seriesInfo } from '../data/series';
@@ -14,7 +15,9 @@ const featuredBlocks = featured.map((entry) => {
     const members = all
       .filter((p) => p.data.series === entry.id)
       .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
-    return { kind: 'series' as const, id: entry.id, info: seriesInfo[entry.id], members };
+    // The card shows the arc's culmination: the last member that has a figure.
+    const figureBearer = [...members].reverse().find((p) => p.data.figure);
+    return { kind: 'series' as const, id: entry.id, info: seriesInfo[entry.id], members, figureBearer };
   }
   return { kind: 'project' as const, id: entry.id, project: byId.get(entry.id) as Project };
 });
@@ -49,6 +52,17 @@ const featuredBlocks = featured.map((entry) => {
         <div class="card">
           <h3>{block.info?.title ?? block.id}</h3>
           {block.info && <p>{block.info.blurb}</p>}
+          {block.figureBearer?.data.figure && (
+            <a class="figure" href={`/projects/${block.figureBearer.id}/`}>
+              <Image
+                src={block.figureBearer.data.figure}
+                alt={block.figureBearer.data.figureAlt ?? block.figureBearer.data.title}
+                width={660}
+                densities={[1.5, 2]}
+                quality={90}
+              />
+            </a>
+          )}
           <ol class="parts">
             {block.members.map((p) => (
               <li>
@@ -63,6 +77,17 @@ const featuredBlocks = featured.map((entry) => {
             <a href={`/projects/${block.project.id}/`}>{block.project.data.title}</a>
           </h3>
           <p>{block.project.data.summary}</p>
+          {block.project.data.figure && (
+            <a class="figure" href={`/projects/${block.project.id}/`}>
+              <Image
+                src={block.project.data.figure}
+                alt={block.project.data.figureAlt ?? block.project.data.title}
+                width={660}
+                densities={[1.5, 2]}
+                quality={90}
+              />
+            </a>
+          )}
           <div class="row">
             {block.project.data.links.report && (
               <a href={block.project.data.links.report}>Report (PDF)</a>
@@ -154,6 +179,20 @@ const featuredBlocks = featured.map((entry) => {
     margin: 0 0 12px;
     color: var(--muted);
     font-size: 15px;
+  }
+  .figure {
+    display: block;
+    margin: 0 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    padding: 6px;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
   }
   .parts {
     margin: 0;

@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { seriesInfo } from '../../data/series';
 
@@ -29,6 +30,19 @@ const arc = project.data.series
       {project.data.links.code && <a href={project.data.links.code}>Code</a>}
       {project.data.links.demo && <a href={project.data.links.demo}>Live demo</a>}
     </div>
+    {
+      project.data.figure && (
+        <figure class="figure">
+          <Image
+            src={project.data.figure}
+            alt={project.data.figureAlt ?? project.data.title}
+            width={716}
+            densities={[1.5, 2]}
+            quality={90}
+          />
+        </figure>
+      )
+    }
     <div class="body">
       <Content />
     </div>
@@ -80,6 +94,19 @@ const arc = project.data.series
   }
   .row a:hover {
     border-color: var(--accent);
+  }
+  .figure {
+    margin: 0 0 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    padding: 8px;
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
   }
   .body {
     font-size: 16px;

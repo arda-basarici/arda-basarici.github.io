@@ -5,6 +5,10 @@ summary: >-
   measurement instrument the blackjack RL work is built on.
 series: blackjack-rl
 seriesOrder: 1
+figure: ../../assets/projects/blackjack-sim.png
+figureAlt: >-
+  Heatmap of win-rate difference between basic strategy and a dealer-mirror baseline across
+  every player total and dealer upcard, showing exactly where the edge comes from.
 links:
   report: /blackjack-sim
   code: /blackjack-sim-code
