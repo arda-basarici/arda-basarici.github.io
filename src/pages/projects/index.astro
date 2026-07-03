@@ -1,0 +1,157 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { seriesInfo } from '../../data/series';
+
+type Project = CollectionEntry<'projects'>;
+
+const all = await getCollection('projects', ({ data }) => !data.draft);
+
+const bySeries = new Map<string, Project[]>();
+const standalone: Project[] = [];
+for (const project of all) {
+  const id = project.data.series;
+  if (id) {
+    bySeries.set(id, [...(bySeries.get(id) ?? []), project]);
+  } else {
+    standalone.push(project);
+  }
+}
+for (const members of bySeries.values()) {
+  members.sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+}
+---
+
+<Base title="Projects — Arda Başarıcı" description="AI/ML projects by Arda Başarıcı.">
+  <h1>Projects</h1>
+
+  {
+    [...bySeries.entries()].map(([id, members]) => {
+      const info = seriesInfo[id];
+      return (
+        <section class="series">
+          <h2>{info?.title ?? id}</h2>
+          {info && <p class="blurb">{info.blurb}</p>}
+          <ol class="arc">
+            {members.map((p) => (
+              <li>
+                <h3>
+                  <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+                </h3>
+                <p>{p.data.summary}</p>
+                <div class="row">
+                  {p.data.links.report && <a href={p.data.links.report}>Report (PDF)</a>}
+                  {p.data.links.code && <a href={p.data.links.code}>Code</a>}
+                  {p.data.links.demo && <a href={p.data.links.demo}>Live demo</a>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      );
+    })
+  }
+
+  <section>
+    <h2>Standalone</h2>
+    {
+      standalone.map((p) => (
+        <div class="card">
+          <h3>
+            <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+          </h3>
+          <p>{p.data.summary}</p>
+          <div class="row">
+            {p.data.links.report && <a href={p.data.links.report}>Report (PDF)</a>}
+            {p.data.links.code && <a href={p.data.links.code}>Code</a>}
+            {p.data.links.demo && <a href={p.data.links.demo}>Live demo</a>}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</Base>
+
+<style>
+  h1 {
+    font-size: 28px;
+    margin: 0 0 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 32px 0 6px;
+  }
+  .blurb {
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  section.series ol.arc {
+    list-style: none;
+    counter-reset: arc;
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid var(--line);
+  }
+  section.series ol.arc li {
+    counter-increment: arc;
+    position: relative;
+    padding: 0 0 18px 22px;
+  }
+  section.series ol.arc li::before {
+    content: counter(arc);
+    position: absolute;
+    left: -13px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+  }
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--accent);
+  }
+  li p,
+  .card p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .row a {
+    text-decoration: none;
+    font-size: 13.5px;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 4px 11px;
+    border-radius: 16px;
+  }
+  .row a:hover {
+    border-color: var(--accent);
+  }
+</style>

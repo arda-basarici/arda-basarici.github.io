@@ -1,0 +1,73 @@
+---
+// Minimal shared shell for inner pages. Deliberately plain — the visual pass
+// (typography/color/identity) is a later step; only structure lives here.
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <style>
+      :root {
+        --ink: #1a1a2e;
+        --muted: #5b6472;
+        --line: #e6e8ee;
+        --bg: #fbfcfe;
+        --accent: #0d47a1;
+        --card: #ffffff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.6 -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 40px 22px 80px;
+      }
+      nav.site {
+        font-size: 14px;
+        margin-bottom: 36px;
+        display: flex;
+        gap: 16px;
+      }
+      nav.site a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      nav.site a:hover {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="site">
+        <a href="/">Arda Başarıcı</a>
+        <a href="/projects/">Projects</a>
+      </nav>
+      <slot />
+    </div>
+  </body>
+</html>

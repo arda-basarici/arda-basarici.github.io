@@ -1,0 +1,113 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { seriesInfo } from '../../data/series';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const arc = project.data.series
+  ? (await getCollection('projects', ({ data }) => data.series === project.data.series))
+      .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0))
+  : [];
+---
+
+<Base title={`${project.data.title} — Arda Başarıcı`} description={project.data.summary}>
+  <article>
+    <h1>{project.data.title}</h1>
+    {project.data.demonstrates && <p class="demonstrates">{project.data.demonstrates}</p>}
+    <div class="row">
+      {project.data.links.report && <a href={project.data.links.report}>Report (PDF)</a>}
+      {project.data.links.code && <a href={project.data.links.code}>Code</a>}
+      {project.data.links.demo && <a href={project.data.links.demo}>Live demo</a>}
+    </div>
+    <div class="body">
+      <Content />
+    </div>
+  </article>
+
+  {
+    arc.length > 1 && (
+      <aside class="arc-nav">
+        <h2>{seriesInfo[project.data.series!]?.title ?? project.data.series} — the full arc</h2>
+        <ol>
+          {arc.map((p) => (
+            <li>
+              {p.id === project.id ? (
+                <span aria-current="page">{p.data.title}</span>
+              ) : (
+                <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+              )}
+            </li>
+          ))}
+        </ol>
+      </aside>
+    )
+  }
+</Base>
+
+<style>
+  h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+  }
+  .demonstrates {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0 0 14px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .row a {
+    text-decoration: none;
+    font-size: 13.5px;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 4px 11px;
+    border-radius: 16px;
+  }
+  .row a:hover {
+    border-color: var(--accent);
+  }
+  .body {
+    font-size: 16px;
+  }
+  .arc-nav {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .arc-nav h2 {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .arc-nav ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .arc-nav li {
+    margin-bottom: 4px;
+  }
+  .arc-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .arc-nav span {
+    color: var(--muted);
+  }
+</style>
