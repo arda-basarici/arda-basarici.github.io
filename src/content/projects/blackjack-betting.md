@@ -15,7 +15,7 @@ seriesNote: >-
   The capstone: the edge is real and measured — and provably too thin, rare, and noise-buried
   for end-to-end learning to hear.
 links:
-  report: /blackjack-betting
+  report: /reports/betting-against-the-noise.pdf
   code: /blackjack-rl-code
 ---
 

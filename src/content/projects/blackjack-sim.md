@@ -14,7 +14,7 @@ seriesNote: >-
   A self-validating engine, checked against published blackjack mathematics — ~80M hands that
   every later claim is measured against.
 links:
-  report: /blackjack-sim
+  report: /reports/blackjack_analysis_report.pdf
   code: /blackjack-sim-code
 ---
 

@@ -3,8 +3,8 @@
 // component language (cards, quiet links, ledger, rules, text tiers).
 // Page-specific layout stays in pages.
 import { getImage } from 'astro:assets';
-import { showArticles } from '../data/site';
 import portrait from '../assets/portrait.jpeg';
+import { showArticles } from '../data/site';
 
 interface Props {
   title: string;
@@ -212,6 +212,10 @@ const ogImageURL = new URL(ogImage.src, Astro.site);
         color: var(--amber);
         min-width: 30px;
         transition: transform 0.15s ease;
+      }
+      /* amber = clickable (site-wide qlink convention); .current stays muted */
+      .ledger a .t {
+        color: var(--amber);
       }
       .ledger .t {
         font-weight: 500;

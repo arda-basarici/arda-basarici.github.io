@@ -15,7 +15,7 @@ seriesNote: >-
   Tabular Monte-Carlo vs. the proven-optimal table: ~93% rediscovered, and the missing part
   traced to coverage, not method.
 links:
-  report: /policy-audit
+  report: /reports/blackjack-rl-policy-audit.pdf
   code: /blackjack-rl-code
 ---
 

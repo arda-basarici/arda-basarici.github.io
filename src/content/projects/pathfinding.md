@@ -9,7 +9,7 @@ demonstrates: >-
   Feature design, leakage guarding codified as tests, two-axis evaluation, and
   distribution-shift analysis — scikit-learn, gradient-boosted trees.
 links:
-  report: /pathfinding
+  report: /reports/pathfinding_report.pdf
   code: /pathfinding-code
 ---
 

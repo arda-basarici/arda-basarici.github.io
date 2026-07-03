@@ -15,7 +15,7 @@ seriesNote: >-
   A network repairs the table's coverage gaps — and pays for the smoothness exactly at the
   policy's sharp boundaries.
 links:
-  report: /table-to-network
+  report: /reports/from-table-to-network.pdf
   code: /blackjack-rl-code
 ---
 

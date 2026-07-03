@@ -9,7 +9,7 @@ demonstrates: >-
   Data engineering — idempotent resumable ingestion, pandera data contracts, atomic Parquet —
   and statistical hygiene at N≈300k, where everything is "significant".
 links:
-  report: /steam-reviews
+  report: /reports/steam_review_report.pdf
   code: /steam-reviews-code
 ---
 
