@@ -1,6 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { showArticles } from '../../data/site';
+
+// Section hidden until the first article ships — same flag as the nav link.
+if (!showArticles) return Astro.redirect('/');
 
 const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -29,11 +33,9 @@ const formatDate = (d: Date) =>
 </Base>
 
 <style>
-  h1 {
-    font-size: 28px;
-    margin: 0 0 24px;
-  }
   .empty {
+    font-family: var(--serif);
+    font-style: italic;
     color: var(--muted);
   }
   .list {
@@ -42,25 +44,31 @@ const formatDate = (d: Date) =>
     padding: 0;
   }
   .list li {
-    margin-bottom: 22px;
+    margin-bottom: 26px;
+    border-top: 1px solid var(--hair);
+    padding-top: 16px;
   }
   .list a {
-    font-size: 18px;
-    color: var(--ink);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--bright);
     text-decoration: none;
+    transition: color 0.15s;
   }
   .list a:hover {
-    color: var(--accent);
+    color: var(--amber);
   }
   time {
     display: block;
     font-size: 13px;
     color: var(--muted);
-    margin: 2px 0 4px;
+    margin: 3px 0 5px;
   }
   .list p {
     margin: 0;
     color: var(--muted);
     font-size: 15px;
+    max-width: 60ch;
   }
 </style>

@@ -1,11 +1,10 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { featured } from '../data/featured';
 import { seriesInfo } from '../data/series';
-
-type Project = CollectionEntry<'projects'>;
+import portrait from '../assets/portrait.jpeg';
 
 const all = await getCollection('projects', ({ data }) => !data.draft);
 const byId = new Map(all.map((p) => [p.id, p]));
@@ -15,11 +14,16 @@ const featuredBlocks = featured.map((entry) => {
     const members = all
       .filter((p) => p.data.series === entry.id)
       .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
-    // The card shows the arc's culmination: the last member that has a figure.
-    const figureBearer = [...members].reverse().find((p) => p.data.figure);
-    return { kind: 'series' as const, id: entry.id, info: seriesInfo[entry.id], members, figureBearer };
+    return { kind: 'series' as const, id: entry.id, info: seriesInfo[entry.id], members };
   }
-  return { kind: 'project' as const, id: entry.id, project: byId.get(entry.id) as Project };
+  const project = byId.get(entry.id);
+  if (!project) {
+    throw new Error(
+      `src/data/featured.ts references unknown or draft project id "${entry.id}" — ` +
+        `expected one of: ${[...byId.keys()].join(', ')}`
+    );
+  }
+  return { kind: 'project' as const, id: entry.id, project };
 });
 ---
 
@@ -28,45 +32,44 @@ const featuredBlocks = featured.map((entry) => {
   description="Mathematics → game development → Data, ML, and AI. A bias for honest evaluation over shiny demos."
 >
   <header>
-    <h1>Arda Başarıcı</h1>
-    <p class="tag">Mathematics → 3 yrs game dev → Data, ML &amp; AI engineering.</p>
-    <p class="tax">
-      I like understanding the structure underneath an answer — what it assumes, and whether the
-      evidence actually supports it. A bias for honest evaluation over shiny demos; building a
-      portfolio in public.
-    </p>
-    <div class="links">
-      <a href="https://github.com/arda-basarici">GitHub</a>
-      <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
-      <a href="/about/">More about me →</a>
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Evidence,<br />honestly weighed.</h1>
+        <p class="tagline">Mathematics → game development → data, ML &amp; AI.</p>
+        <p class="intro">
+          I like understanding the structure underneath an answer — what it assumes, and whether
+          the evidence actually supports it. A bias for honest evaluation over shiny demos;
+          building a portfolio in public.
+        </p>
+        <div class="links">
+          <a class="qlink" href="https://github.com/arda-basarici">GitHub</a>
+          <a class="qlink" href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <Image src={portrait} alt="Arda Başarıcı" width={210} densities={[1.5, 2]} quality={85} />
+      </div>
     </div>
   </header>
 
-  <hr />
-
-  <h2>Featured work</h2>
+  <div class="rule"><h2>Featured work</h2></div>
 
   {
     featuredBlocks.map((block) =>
       block.kind === 'series' ? (
         <div class="card">
           <h3>{block.info?.title ?? block.id}</h3>
-          {block.info && <p>{block.info.blurb}</p>}
-          {block.figureBearer?.data.figure && (
-            <a class="figure" href={`/projects/${block.figureBearer.id}/`}>
-              <Image
-                src={block.figureBearer.data.figure}
-                alt={block.figureBearer.data.figureAlt ?? block.figureBearer.data.title}
-                width={660}
-                densities={[1.5, 2]}
-                quality={90}
-              />
-            </a>
-          )}
-          <ol class="parts">
+          {block.info && <p class="desc">{block.info.blurb}</p>}
+          <ol class="ledger">
             {block.members.map((p) => (
               <li>
-                <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+                <a href={`/projects/${p.id}/`}>
+                  <span class="lrow">
+                    <span class="t">{p.data.title}</span>
+                    {p.data.seriesRole && <small>{p.data.seriesRole}</small>}
+                  </span>
+                  {p.data.seriesNote && <span class="note">{p.data.seriesNote}</span>}
+                </a>
               </li>
             ))}
           </ol>
@@ -76,166 +79,105 @@ const featuredBlocks = featured.map((entry) => {
           <h3>
             <a href={`/projects/${block.project.id}/`}>{block.project.data.title}</a>
           </h3>
-          <p>{block.project.data.summary}</p>
-          {block.project.data.figure && (
-            <a class="figure" href={`/projects/${block.project.id}/`}>
-              <Image
-                src={block.project.data.figure}
-                alt={block.project.data.figureAlt ?? block.project.data.title}
-                width={660}
-                densities={[1.5, 2]}
-                quality={90}
-              />
-            </a>
-          )}
-          <div class="row">
+          <p class="desc">{block.project.data.summary}</p>
+          <div class="refs">
             {block.project.data.links.report && (
-              <a href={block.project.data.links.report}>Report (PDF)</a>
+              <a class="qlink" href={block.project.data.links.report}>
+                Report (PDF)
+              </a>
             )}
-            {block.project.data.links.code && <a href={block.project.data.links.code}>Code</a>}
+            {block.project.data.links.code && (
+              <a class="qlink" href={block.project.data.links.code}>
+                Code
+              </a>
+            )}
+            {block.project.data.links.demo && (
+              <a class="qlink" href={block.project.data.links.demo}>
+                Live demo
+              </a>
+            )}
           </div>
         </div>
       )
     )
   }
 
-  <p class="all">
-    <a href="/projects/">All projects →</a>
+  <p class="more">
+    <a class="qlink fwd" href="/projects/">All projects</a>
   </p>
-
-  <footer>
-    <p>
-      This site is the stable front door: published posts and report PDFs link here, not at deep
-      repo paths, so links keep working when repositories move.
-    </p>
-  </footer>
 </Base>
 
 <style>
+  .hero {
+    display: flex;
+    gap: 36px;
+    align-items: flex-start;
+  }
+  .hero-text {
+    flex: 1;
+  }
+  .portrait {
+    flex: 0 0 210px;
+    height: 210px;
+    border-radius: 50%;
+    margin-top: 8px;
+    border: 2px solid var(--border);
+    box-shadow: 6px 6px 0 var(--shadow);
+    overflow: hidden;
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 26%;
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .hero {
+      flex-direction: column-reverse;
+    }
+    .portrait {
+      flex: 0 0 auto;
+      width: 140px;
+      height: 140px;
+    }
+  }
+
   h1 {
-    font-size: 30px;
-    line-height: 1.2;
-    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 52px;
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+    color: var(--bright);
   }
-  .tag {
-    font-size: 17px;
-    color: var(--muted);
-    margin: 0 0 4px;
+  .tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--amber);
+    margin: 0 0 16px;
   }
-  .tax {
-    font-size: 15px;
+  .intro {
+    font-size: 16.5px;
     color: var(--muted);
-    margin: 0;
+    max-width: 56ch;
+    margin: 0 0 22px;
   }
   .links {
-    margin: 18px 0 8px;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 10px 22px;
+    font-size: 14.5px;
   }
-  .links a {
-    text-decoration: none;
-    color: var(--accent);
-    border: 1px solid var(--line);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    background: #fff;
+  .more {
+    font-size: 15.5px;
+    margin-top: 4px;
   }
-  .links a:hover {
-    border-color: var(--accent);
-  }
-  hr {
-    border: none;
-    border-top: 1px solid var(--line);
-    margin: 34px 0;
-  }
-  h2 {
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 18px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
-  .card h3 {
-    margin: 0 0 6px;
-    font-size: 18px;
-  }
-  .card h3 a {
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .card h3 a:hover {
-    color: var(--accent);
-  }
-  .card p {
-    margin: 0 0 12px;
-    color: var(--muted);
-    font-size: 15px;
-  }
-  .figure {
-    display: block;
-    margin: 0 0 12px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: #fff;
-    padding: 6px;
-  }
-  .figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  .parts {
-    margin: 0;
-    padding-left: 22px;
-    font-size: 15px;
-  }
-  .parts li {
-    margin-bottom: 3px;
-  }
-  .parts a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .parts a:hover {
-    text-decoration: underline;
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .row a {
-    text-decoration: none;
-    font-size: 13.5px;
-    color: var(--accent);
-    border: 1px solid var(--line);
-    padding: 4px 11px;
-    border-radius: 16px;
-  }
-  .row a:hover {
-    border-color: var(--accent);
-  }
-  .all {
-    margin: 8px 0 0;
-  }
-  .all a {
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 15px;
-  }
-  footer {
-    margin-top: 40px;
-    font-size: 13px;
-    color: #9aa2b1;
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 40px;
+    }
   }
 </style>

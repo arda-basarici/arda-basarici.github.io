@@ -1,6 +1,5 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { seriesInfo } from '../../data/series';
 
@@ -30,159 +29,54 @@ for (const members of bySeries.values()) {
     [...bySeries.entries()].map(([id, members]) => {
       const info = seriesInfo[id];
       return (
-        <section class="series">
-          <h2>{info?.title ?? id}</h2>
-          {info && <p class="blurb">{info.blurb}</p>}
-          <ol class="arc">
+        <div class="card">
+          <h3>{info?.title ?? id}</h3>
+          {info && <p class="desc">{info.blurb}</p>}
+          <ol class="ledger">
             {members.map((p) => (
               <li>
-                <h3>
-                  <a href={`/projects/${p.id}/`}>{p.data.title}</a>
-                </h3>
-                <p>{p.data.summary}</p>
-                {p.data.figure && (
-                  <a class="figure" href={`/projects/${p.id}/`}>
-                    <Image
-                      src={p.data.figure}
-                      alt={p.data.figureAlt ?? p.data.title}
-                      width={660}
-                      densities={[1.5, 2]}
-                      quality={90}
-                    />
-                  </a>
-                )}
-                <div class="row">
-                  {p.data.links.report && <a href={p.data.links.report}>Report (PDF)</a>}
-                  {p.data.links.code && <a href={p.data.links.code}>Code</a>}
-                  {p.data.links.demo && <a href={p.data.links.demo}>Live demo</a>}
-                </div>
+                <a href={`/projects/${p.id}/`}>
+                  <span class="lrow">
+                    <span class="t">{p.data.title}</span>
+                    {p.data.seriesRole && <small>{p.data.seriesRole}</small>}
+                  </span>
+                  {p.data.seriesNote && <span class="note">{p.data.seriesNote}</span>}
+                </a>
               </li>
             ))}
           </ol>
-        </section>
+        </div>
       );
     })
   }
 
-  <section>
-    <h2>Standalone</h2>
-    {
-      standalone.map((p) => (
-        <div class="card">
-          <h3>
-            <a href={`/projects/${p.id}/`}>{p.data.title}</a>
-          </h3>
-          <p>{p.data.summary}</p>
-          {p.data.figure && (
-            <a class="figure" href={`/projects/${p.id}/`}>
-              <Image src={p.data.figure} alt={p.data.figureAlt ?? p.data.title} width={660} densities={[1.5, 2]} quality={90} />
+  <div class="rule"><h2>Standalone</h2></div>
+
+  {
+    standalone.map((p) => (
+      <div class="card">
+        <h3>
+          <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+        </h3>
+        <p class="desc">{p.data.summary}</p>
+        <div class="refs">
+          {p.data.links.report && (
+            <a class="qlink" href={p.data.links.report}>
+              Report (PDF)
             </a>
           )}
-          <div class="row">
-            {p.data.links.report && <a href={p.data.links.report}>Report (PDF)</a>}
-            {p.data.links.code && <a href={p.data.links.code}>Code</a>}
-            {p.data.links.demo && <a href={p.data.links.demo}>Live demo</a>}
-          </div>
+          {p.data.links.code && (
+            <a class="qlink" href={p.data.links.code}>
+              Code
+            </a>
+          )}
+          {p.data.links.demo && (
+            <a class="qlink" href={p.data.links.demo}>
+              Live demo
+            </a>
+          )}
         </div>
-      ))
-    }
-  </section>
+      </div>
+    ))
+  }
 </Base>
-
-<style>
-  h1 {
-    font-size: 28px;
-    margin: 0 0 24px;
-  }
-  h2 {
-    font-size: 20px;
-    margin: 32px 0 6px;
-  }
-  .blurb {
-    color: var(--muted);
-    margin: 0 0 18px;
-  }
-  section.series ol.arc {
-    list-style: none;
-    counter-reset: arc;
-    margin: 0;
-    padding: 0;
-    border-left: 2px solid var(--line);
-  }
-  section.series ol.arc li {
-    counter-increment: arc;
-    position: relative;
-    padding: 0 0 18px 22px;
-  }
-  section.series ol.arc li::before {
-    content: counter(arc);
-    position: absolute;
-    left: -13px;
-    top: 2px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--card);
-    border: 2px solid var(--line);
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
-  h3 {
-    margin: 0 0 6px;
-    font-size: 18px;
-  }
-  h3 a {
-    color: var(--ink);
-    text-decoration: none;
-  }
-  h3 a:hover {
-    color: var(--accent);
-  }
-  li p,
-  .card p {
-    margin: 0 0 12px;
-    color: var(--muted);
-    font-size: 15px;
-  }
-  .figure {
-    display: block;
-    margin: 0 0 12px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: #fff;
-    padding: 6px;
-  }
-  .figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .row a {
-    text-decoration: none;
-    font-size: 13.5px;
-    color: var(--accent);
-    border: 1px solid var(--line);
-    padding: 4px 11px;
-    border-radius: 16px;
-  }
-  .row a:hover {
-    border-color: var(--accent);
-  }
-</style>

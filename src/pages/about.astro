@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import portrait from '../assets/portrait.jpeg';
 ---
 
 <Base
@@ -7,9 +9,15 @@ import Base from '../layouts/Base.astro';
   description="Mathematics → game development → Data, ML, and AI. Building a portfolio in public."
 >
   <article>
-    <h1>About</h1>
-
-    <p class="lede">I enjoy moving between concrete problems and the abstractions that connect them.</p>
+    <div class="head">
+      <div>
+        <h1>About</h1>
+        <p class="lede">I enjoy moving between concrete problems and the abstractions that connect them.</p>
+      </div>
+      <div class="portrait">
+        <Image src={portrait} alt="Arda Başarıcı" width={195} densities={[1.5, 2]} quality={85} />
+      </div>
+    </div>
 
     <p>
       What interests me most isn't just finding an answer, but understanding the structure
@@ -59,59 +67,72 @@ import Base from '../layouts/Base.astro';
     </ul>
 
     <p>
-      I'm building this journey in public — through <a href="/projects/">projects and technical
-      reports</a> here, and posts on
-      <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>.
+      I'm building this journey in public — through <a class="qlink fwd" href="/projects/">projects
+      and technical reports</a> here, and posts on
+      <a class="qlink" href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>.
     </p>
 
-    <h2>Elsewhere</h2>
-
-    <div class="row">
-      <a href="https://github.com/arda-basarici">GitHub</a>
-      <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
-      <a href="mailto:ardabasarici@gmail.com">Email</a>
-    </div>
   </article>
 </Base>
 
 <style>
-  h1 {
-    font-size: 28px;
-    margin: 0 0 18px;
+  .head {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .head > div:first-child {
+    flex: 0 1 auto;
+  }
+  .portrait {
+    flex: 0 0 195px;
+    height: 195px;
+    border-radius: 50%;
+    margin-top: -6px;
+    border: 2px solid var(--border);
+    box-shadow: 5px 5px 0 var(--shadow);
+    overflow: hidden;
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 26%;
+    display: block;
+  }
+  @media (max-width: 560px) {
+    .head {
+      flex-direction: column-reverse;
+    }
+    .portrait {
+      flex: 0 0 auto;
+      width: 120px;
+      height: 120px;
+    }
   }
   h2 {
-    font-size: 18px;
-    margin: 28px 0 10px;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 23px;
+    color: var(--bright);
+    margin: 30px 0 10px;
   }
   .lede {
-    font-size: 18px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 21px;
+    color: var(--amber);
+    max-width: 32ch;
   }
   p,
   li {
-    color: var(--ink);
+    max-width: 64ch;
   }
   ul {
     padding-left: 22px;
   }
   li {
     margin-bottom: 4px;
-  }
-  a {
-    color: var(--accent);
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .row a {
-    text-decoration: none;
-    font-size: 13.5px;
-    border: 1px solid var(--line);
-    padding: 4px 11px;
-    border-radius: 16px;
-  }
-  .row a:hover {
-    border-color: var(--accent);
   }
 </style>

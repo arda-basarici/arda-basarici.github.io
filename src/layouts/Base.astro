@@ -1,11 +1,21 @@
 ---
-// Minimal shared shell for inner pages. Deliberately plain — the visual pass
-// (typography/color/identity) is a later step; only structure lives here.
+// Site shell: midnight-editorial tokens, fonts, nav, footer, and the shared
+// component language (cards, quiet links, ledger, rules, text tiers).
+// Page-specific layout stays in pages.
+import { getImage } from 'astro:assets';
+import { showArticles } from '../data/site';
+import portrait from '../assets/portrait.jpeg';
+
 interface Props {
   title: string;
   description?: string;
 }
 const { title, description } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// Portrait doubles as the social-share image (LinkedIn/OG readers want jpeg).
+const ogImage = await getImage({ src: portrait, width: 800, format: 'jpeg' });
+const ogImageURL = new URL(ogImage.src, Astro.site);
 ---
 
 <!doctype html>
@@ -13,62 +23,327 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#14161b" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <style>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
       :root {
-        --ink: #1a1a2e;
-        --muted: #5b6472;
-        --line: #e6e8ee;
-        --bg: #fbfcfe;
-        --accent: #0d47a1;
-        --card: #ffffff;
+        --paper: #14161b;
+        --card: #1c1f26;
+        --plate: #f4f1e9;
+        --ink: #e9e6df;
+        --bright: #f6f3ea;
+        --muted: #9a968c;
+        --hair: #2b2f38;
+        --border: #3a3f4a;
+        --shadow: #0b0c0f;
+        --amber: #e0a458;
+        --amber-deep: #b97f35;
+        --blue: #7fa8c9;
+        --serif: Newsreader, Georgia, serif;
+        --sans: Inter, -apple-system, 'Segoe UI', sans-serif;
       }
       * {
         box-sizing: border-box;
       }
+      html {
+        background: var(--paper);
+      }
       body {
         margin: 0;
-        background: var(--bg);
+        background: var(--paper);
         color: var(--ink);
-        font:
-          16px/1.6 -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          Helvetica,
-          Arial,
-          sans-serif;
+        font: 16px/1.65 var(--sans);
         -webkit-font-smoothing: antialiased;
       }
-      .wrap {
-        max-width: 760px;
-        margin: 0 auto;
-        padding: 40px 22px 80px;
+      ::selection {
+        background: var(--amber);
+        color: var(--paper);
       }
-      nav.site {
-        font-size: 14px;
-        margin-bottom: 36px;
-        display: flex;
-        gap: 16px;
+
+      /* page titles: serif, bright; pages override size where deliberate */
+      h1 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 38px;
+        line-height: 1.15;
+        color: var(--bright);
+        margin: 0 0 26px;
       }
-      nav.site a {
+
+      /* quiet links: amber text, blue mark, underline on hover */
+      .qlink {
+        color: var(--amber);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+      .qlink::after {
+        content: ' ↗';
+        color: var(--blue);
+        font-size: 0.82em;
+      }
+      .qlink.fwd::after {
+        content: ' →';
+      }
+      .qlink:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* card language */
+      .card {
+        background: var(--card);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 26px 28px;
+        margin-bottom: 28px;
+        box-shadow: 6px 6px 0 var(--shadow);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      }
+      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        .card:hover {
+          transform: translate(-2px, -2px);
+          box-shadow: 9px 9px 0 var(--shadow);
+          border-color: #4a5060;
+        }
+      }
+      .card h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 26px;
+        margin: 0 0 10px;
+        color: var(--bright);
+      }
+      .card h3 a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .card h3 a:hover {
+        color: var(--amber);
+      }
+
+      /* supporting text on cards */
+      .desc {
         color: var(--muted);
+        font-size: 15.5px;
+        margin: 0 0 18px;
+        max-width: 60ch;
+      }
+
+      /* link rows (cards, hero) */
+      .refs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        font-size: 14.5px;
+      }
+
+      /* section rule with centered label (a real h2 for the document outline) */
+      .rule {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 56px 0 30px;
+      }
+      .rule::before,
+      .rule::after {
+        content: '';
+        height: 1px;
+        background: var(--hair);
+        flex: 1;
+      }
+      .rule h2 {
+        font-family: var(--sans);
+        font-weight: 500;
+        font-size: 12.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      /* arc ledger */
+      .ledger {
+        list-style: none;
+        margin: 0 0 22px;
+        padding: 0;
+        counter-reset: t;
+      }
+      .ledger li {
+        counter-increment: t;
+        border-top: 1px solid var(--hair);
+      }
+      .ledger li:last-child {
+        border-bottom: 1px solid var(--hair);
+      }
+      .ledger a,
+      .ledger .current {
+        display: block;
+        padding: 10px 2px;
+        color: var(--ink);
         text-decoration: none;
       }
+      .ledger .lrow {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+      }
+      .ledger .lrow::before {
+        content: '0' counter(t);
+        font-family: var(--serif);
+        font-size: 19px;
+        color: var(--amber);
+        min-width: 30px;
+        transition: transform 0.15s ease;
+      }
+      .ledger .t {
+        font-weight: 500;
+        font-size: 15px;
+        transition: color 0.15s;
+      }
+      .ledger small {
+        margin-left: auto;
+        color: var(--muted);
+        font-style: italic;
+        font-family: var(--serif);
+        font-size: 13.5px;
+        text-align: right;
+      }
+      .ledger .note {
+        display: block;
+        margin: 2px 0 0 46px;
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--muted);
+        max-width: 56ch;
+      }
+      .ledger a:hover .t {
+        color: var(--amber);
+      }
+      .ledger .current .t {
+        color: var(--muted);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .ledger a:hover .lrow::before {
+          transform: translateX(3px);
+        }
+      }
+
+      /* entrance: content fades up once on load */
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes rise {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        .wrap > * {
+          animation: rise 0.5s ease-out backwards;
+        }
+        .wrap > *:nth-child(2) {
+          animation-delay: 0.06s;
+        }
+        .wrap > *:nth-child(3) {
+          animation-delay: 0.12s;
+        }
+        .wrap > *:nth-child(4) {
+          animation-delay: 0.18s;
+        }
+        .wrap > *:nth-child(n + 5) {
+          animation-delay: 0.24s;
+        }
+      }
+    </style>
+    <style>
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 48px 24px 90px;
+      }
+      nav.site {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 22px;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 56px;
+      }
+      nav.site a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
       nav.site a:hover {
-        color: var(--accent);
+        color: var(--amber);
+      }
+      nav.site .brand {
+        color: var(--bright);
+        font-weight: 600;
+      }
+      footer {
+        margin-top: 78px;
+        padding-top: 20px;
+        border-top: 1px solid var(--hair);
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        align-items: baseline;
+      }
+      footer .name {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 14.5px;
+      }
+      footer a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      footer a:hover {
+        color: var(--amber);
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <nav class="site">
-        <a href="/">Arda Başarıcı</a>
+        <a class="brand" href="/">Arda Başarıcı</a>
         <a href="/projects/">Projects</a>
+        {showArticles && <a href="/articles/">Articles</a>}
         <a href="/about/">About</a>
       </nav>
       <slot />
+      <footer>
+        <span class="name">Arda Başarıcı</span>
+        <a href="https://github.com/arda-basarici">GitHub</a>
+        <a href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a>
+        <a href="mailto:ardabasarici@gmail.com">ardabasarici@gmail.com</a>
+      </footer>
     </div>
   </body>
 </html>

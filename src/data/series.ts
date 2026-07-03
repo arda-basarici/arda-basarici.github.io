@@ -9,9 +9,9 @@ export const seriesInfo: Record<string, SeriesInfo> = {
   'blackjack-rl': {
     title: 'Blackjack RL',
     blurb:
-      'A four-part research arc: build the measurement instrument, audit what tabular ' +
-      'Monte-Carlo control can rediscover, test what neural generalization repairs and ' +
-      'distorts, then ask whether an RL agent can learn Kelly bet-sizing from a signal ' +
-      'buried in noise.',
+      'A four-part research arc: a measurement instrument that had to earn trust first, ' +
+      'then one question asked three times with the ground truth progressively removed — ' +
+      'can learning rediscover optimal play as a table, as a network, and finally as a ' +
+      'bet-sizing rule whose signal is buried fifty-deep in per-hand noise?',
   },
 };

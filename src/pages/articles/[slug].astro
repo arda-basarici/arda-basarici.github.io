@@ -1,8 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { showArticles } from '../../data/site';
 
 export async function getStaticPaths() {
+  // Section hidden until the first article ships — same flag as the nav link.
+  if (!showArticles) return [];
   const articles = await getCollection('articles', ({ data }) => !data.draft);
   return articles.map((article) => ({
     params: { slug: article.id },
@@ -41,17 +44,35 @@ const formatDate = (d: Date) =>
 
 <style>
   h1 {
-    font-size: 28px;
-    margin: 0 0 6px;
+    margin-bottom: 8px;
   }
   .meta {
+    font-family: var(--serif);
+    font-style: italic;
     color: var(--muted);
-    font-size: 14px;
-    margin: 0 0 24px;
+    font-size: 15px;
+    margin: 0 0 26px;
+  }
+  .body {
+    font-size: 16px;
+  }
+  .body :global(p),
+  .body :global(li) {
+    max-width: 64ch;
+  }
+  .body :global(h2) {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--bright);
+    margin: 30px 0 10px;
+  }
+  .body :global(a) {
+    color: var(--amber);
   }
   .body :global(pre) {
-    background: #f2f4f8;
-    border: 1px solid var(--line);
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 14px 16px;
     overflow-x: auto;
@@ -60,13 +81,19 @@ const formatDate = (d: Date) =>
   .body :global(code) {
     font-size: 0.95em;
   }
+  .body :global(:not(pre) > code) {
+    background: var(--card);
+    border: 1px solid var(--hair);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
   .body :global(blockquote) {
-    border-left: 3px solid var(--line);
+    border-left: 3px solid var(--amber-deep);
     margin: 16px 0;
     padding: 2px 0 2px 16px;
     color: var(--muted);
-  }
-  .body :global(a) {
-    color: var(--accent);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
   }
 </style>

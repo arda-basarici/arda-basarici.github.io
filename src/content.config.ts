@@ -4,10 +4,7 @@ import { z } from 'astro/zod';
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-  // Schema is a function so we get the image() helper: figure paths are
-  // resolved and verified at build, and the images get optimized.
-  schema: ({ image }) =>
-    z.object({
+  schema: z.object({
       title: z.string(),
       // Card-level one-paragraph pitch: the finding, not just the topic.
       summary: z.string(),
@@ -17,9 +14,10 @@ const projects = defineCollection({
       // position in the arc. Series-level title/blurb live in src/data/series.ts.
       series: z.string().optional(),
       seriesOrder: z.number().int().positive().optional(),
-      // Representative figure: the one image that states the headline finding.
-      figure: image().optional(),
-      figureAlt: z.string().optional(),
+      // Two-or-three-word role shown in the arc ledger, e.g. "the instrument".
+      seriesRole: z.string().optional(),
+      // One-sentence explanation shown under the title in the arc ledger.
+      seriesNote: z.string().optional(),
       // Always route through the stable short-URLs (see REDIRECTS.md), never deep repo paths.
       links: z
         .object({
