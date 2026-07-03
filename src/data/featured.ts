@@ -5,4 +5,5 @@ export type FeaturedEntry = { kind: 'series'; id: string } | { kind: 'project'; 
 export const featured: FeaturedEntry[] = [
   { kind: 'series', id: 'blackjack-rl' },
   { kind: 'project', id: 'pathfinding' },
+  { kind: 'project', id: 'steam-reviews' },
 ];
