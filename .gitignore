@@ -14,7 +14,8 @@ desktop.ini
 *.swp
 *~
 
-# Node tooling (only if you later add a build step)
+# Node tooling
 node_modules/
 dist/
 .cache/
+.astro/

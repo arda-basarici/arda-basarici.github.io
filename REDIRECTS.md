@@ -1,7 +1,9 @@
 # Redirects
 
 Stable short-URLs (`arda-basarici.github.io/<route>`) used in posts + report covers. Each is a
-folder with an `index.html` meta-refresh. Targets are under
+folder under `public/` with an `index.html` meta-refresh (copied verbatim into the build).
+This file is the registry of ALL claimed routes — check it before adding any new top-level
+route or `/apps/…` entry to avoid collisions. Targets are under
 `github.com/arda-basarici/ai-journey` (`blob/main/…` = PDF, `tree/main/…` = code). Repoint on repo move.
 
 ## Reports
