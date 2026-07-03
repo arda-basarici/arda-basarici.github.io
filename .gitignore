@@ -1,0 +1,20 @@
+# Local working notes (private — never published)
+TODO.md
+NOTES.md
+DESIGN.md
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node tooling (only if you later add a build step)
+node_modules/
+dist/
+.cache/
