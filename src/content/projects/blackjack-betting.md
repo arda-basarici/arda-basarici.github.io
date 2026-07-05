@@ -16,7 +16,7 @@ seriesNote: >-
   for end-to-end learning to hear.
 links:
   report: /reports/betting-against-the-noise.pdf
-  code: /blackjack-rl-code
+  code: https://github.com/arda-basarici/blackjack-rl
 ---
 
 You have a genuine edge on a bet — how much should you wager? There's a formula for the

@@ -15,7 +15,7 @@ seriesNote: >-
   every later claim is measured against.
 links:
   report: /reports/blackjack_analysis_report.pdf
-  code: /blackjack-sim-code
+  code: https://github.com/arda-basarici/blackjack-sim
 ---
 
 Every result in the blackjack series rests on one piece of infrastructure: a simulator whose

@@ -16,7 +16,7 @@ seriesNote: >-
   traced to coverage, not method.
 links:
   report: /reports/blackjack-rl-policy-audit.pdf
-  code: /blackjack-rl-code
+  code: https://github.com/arda-basarici/blackjack-rl
 ---
 
 Blackjack's optimal strategy is exactly computable — a complete, trustworthy answer key. That

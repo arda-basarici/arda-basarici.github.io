@@ -10,7 +10,7 @@ demonstrates: >-
   distribution-shift analysis — scikit-learn, gradient-boosted trees.
 links:
   report: /reports/pathfinding_report.pdf
-  code: /pathfinding-code
+  code: https://github.com/arda-basarici/pathfinding-ml
 ---
 
 A* finds shortest paths fast when its heuristic — its guess of the distance still to go — is

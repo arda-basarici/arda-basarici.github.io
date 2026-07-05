@@ -16,7 +16,7 @@ seriesNote: >-
   policy's sharp boundaries.
 links:
   report: /reports/from-table-to-network.pdf
-  code: /blackjack-rl-code
+  code: https://github.com/arda-basarici/blackjack-rl
 ---
 
 The policy audit ended with a diagnosis: the tabular learner's errors pool in coverage-starved

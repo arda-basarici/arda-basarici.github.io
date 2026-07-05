@@ -10,7 +10,7 @@ demonstrates: >-
   and statistical hygiene at N≈300k, where everything is "significant".
 links:
   report: /reports/steam_review_report.pdf
-  code: /steam-reviews-code
+  code: https://github.com/arda-basarici/steam-reviews
 ---
 
 Every game wears one number — "85% positive" — and it gets read as a verdict. This project
