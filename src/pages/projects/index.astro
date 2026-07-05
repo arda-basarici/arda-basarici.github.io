@@ -1,11 +1,13 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { seriesInfo } from '../../data/series';
 
 type Project = CollectionEntry<'projects'>;
 
 const all = await getCollection('projects', ({ data }) => !data.draft);
+const seriesById = new Map(
+  (await getCollection('series', ({ data }) => !data.draft)).map((s) => [s.id, s])
+);
 
 const bySeries = new Map<string, Project[]>();
 const standalone: Project[] = [];
@@ -27,11 +29,13 @@ for (const members of bySeries.values()) {
 
   {
     [...bySeries.entries()].map(([id, members]) => {
-      const info = seriesInfo[id];
+      const info = seriesById.get(id);
       return (
         <div class="card">
-          <h3>{info?.title ?? id}</h3>
-          {info && <p class="desc">{info.blurb}</p>}
+          <h3>
+            <a href={`/projects/${id}/`}>{info?.data.title ?? id}</a>
+          </h3>
+          {info && <p class="desc">{info.data.blurb}</p>}
           <ol class="ledger">
             {members.map((p) => (
               <li>

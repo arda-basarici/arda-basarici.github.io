@@ -3,18 +3,27 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { featured } from '../data/featured';
-import { seriesInfo } from '../data/series';
 import portrait from '../assets/portrait.jpeg';
 
 const all = await getCollection('projects', ({ data }) => !data.draft);
 const byId = new Map(all.map((p) => [p.id, p]));
+const seriesById = new Map(
+  (await getCollection('series', ({ data }) => !data.draft)).map((s) => [s.id, s])
+);
 
 const featuredBlocks = featured.map((entry) => {
   if (entry.kind === 'series') {
+    const info = seriesById.get(entry.id);
+    if (!info) {
+      throw new Error(
+        `src/data/featured.ts references unknown or draft series id "${entry.id}" — ` +
+          `expected one of: ${[...seriesById.keys()].join(', ')}`
+      );
+    }
     const members = all
       .filter((p) => p.data.series === entry.id)
       .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
-    return { kind: 'series' as const, id: entry.id, info: seriesInfo[entry.id], members };
+    return { kind: 'series' as const, id: entry.id, info, members };
   }
   const project = byId.get(entry.id);
   if (!project) {
@@ -58,8 +67,10 @@ const featuredBlocks = featured.map((entry) => {
     featuredBlocks.map((block) =>
       block.kind === 'series' ? (
         <div class="card">
-          <h3>{block.info?.title ?? block.id}</h3>
-          {block.info && <p class="desc">{block.info.blurb}</p>}
+          <h3>
+            <a href={`/projects/${block.id}/`}>{block.info.data.title}</a>
+          </h3>
+          <p class="desc">{block.info.data.blurb}</p>
           <ol class="ledger">
             {block.members.map((p) => (
               <li>

@@ -11,7 +11,7 @@ const projects = defineCollection({
       // One line: what skills/toolset this project evidences.
       demonstrates: z.string().optional(),
       // Projects that build on each other share a series id; seriesOrder is the
-      // position in the arc. Series-level title/blurb live in src/data/series.ts.
+      // position in the arc. Series-level title/blurb live in src/content/series/.
       series: z.string().optional(),
       seriesOrder: z.number().int().positive().optional(),
       // Two-or-three-word role shown in the arc ledger, e.g. "the instrument".
@@ -31,6 +31,20 @@ const projects = defineCollection({
     }),
 });
 
+// A series groups projects that build on each other (matched via the projects'
+// `series` field). The body is the overview shown at /projects/<series-id>/.
+const series = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/series' }),
+  schema: z.object({
+    title: z.string(),
+    // Card-level one-paragraph pitch for the whole arc.
+    blurb: z.string(),
+    // One line: what skills/toolset the series evidences end-to-end.
+    demonstrates: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 const articles = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
   schema: z.object({
@@ -44,4 +58,4 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { projects, articles };
+export const collections = { projects, series, articles };

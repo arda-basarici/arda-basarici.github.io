@@ -1,56 +1,95 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { seriesInfo } from '../../data/series';
 
+// One route, two page kinds: /projects/<id>/ serves a project page or a
+// series-overview page. Ids share a namespace, so a collision fails the build.
 export async function getStaticPaths() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
-  return projects.map((project) => ({
-    params: { slug: project.id },
-    props: { project },
-  }));
+  const series = await getCollection('series', ({ data }) => !data.draft);
+  const projectIds = new Set(projects.map((p) => p.id));
+  for (const s of series) {
+    if (projectIds.has(s.id)) {
+      throw new Error(
+        `series id "${s.id}" collides with a project id — both would render at /projects/${s.id}/`
+      );
+    }
+  }
+  return [
+    ...projects.map((project) => ({
+      params: { slug: project.id },
+      props: { project, series: null },
+    })),
+    ...series.map((s) => ({
+      params: { slug: s.id },
+      props: { project: null, series: s },
+    })),
+  ];
 }
 
-const { project } = Astro.props;
-const { Content } = await render(project);
+interface Props {
+  project: CollectionEntry<'projects'> | null;
+  series: CollectionEntry<'series'> | null;
+}
+const { project, series } = Astro.props;
 
-const arc = project.data.series
+const entry = (project ?? series)!;
+const { Content } = await render(entry);
+
+// Arc members: for a series page, its own members; for a project page, its siblings.
+const arcId = series?.id ?? project?.data.series;
+const arc = arcId
   ? (
-      await getCollection(
-        'projects',
-        ({ data }) => !data.draft && data.series === project.data.series
-      )
+      await getCollection('projects', ({ data }) => !data.draft && data.series === arcId)
     ).sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0))
   : [];
+const arcTitle = series
+  ? null // the series page's h1 already names the arc
+  : (await getCollection('series')).find((s) => s.id === arcId)?.data.title ?? arcId;
+
+// Prev/next tour across all projects (series members in arc order, then
+// standalones), wrapping at the ends so no page is a dead end.
+const tour = project
+  ? (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => {
+      const sa = a.data.series ?? '~'; // standalones after series groups
+      const sb = b.data.series ?? '~';
+      if (sa !== sb) return sa < sb ? -1 : 1;
+      return (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0);
+    })
+  : [];
+const at = tour.findIndex((p) => p.id === project?.id);
+const prev = project ? tour[(at - 1 + tour.length) % tour.length] : null;
+const next = project ? tour[(at + 1) % tour.length] : null;
 ---
 
-<Base title={`${project.data.title} — Arda Başarıcı`} description={project.data.summary}>
+<Base
+  title={`${entry.data.title} — Arda Başarıcı`}
+  description={project ? project.data.summary : series!.data.blurb}
+>
   <article>
-    <h1>{project.data.title}</h1>
-    {project.data.demonstrates && <p class="demonstrates">{project.data.demonstrates}</p>}
-    <div class="refs">
-      {
-        project.data.links.report && (
-          <a class="qlink" href={project.data.links.report}>
-            Report (PDF)
-          </a>
-        )
-      }
-      {
-        project.data.links.code && (
-          <a class="qlink" href={project.data.links.code}>
-            Code
-          </a>
-        )
-      }
-      {
-        project.data.links.demo && (
-          <a class="qlink" href={project.data.links.demo}>
-            Live demo
-          </a>
-        )
-      }
-    </div>
+    <h1>{entry.data.title}</h1>
+    {entry.data.demonstrates && <p class="demonstrates">{entry.data.demonstrates}</p>}
+    {
+      project && (
+        <div class="refs">
+          {project.data.links.report && (
+            <a class="qlink" href={project.data.links.report}>
+              Report (PDF)
+            </a>
+          )}
+          {project.data.links.code && (
+            <a class="qlink" href={project.data.links.code}>
+              Code
+            </a>
+          )}
+          {project.data.links.demo && (
+            <a class="qlink" href={project.data.links.demo}>
+              Live demo
+            </a>
+          )}
+        </div>
+      )
+    }
     <div class="body">
       <Content />
     </div>
@@ -60,12 +99,20 @@ const arc = project.data.series
     arc.length > 1 && (
       <aside class="arc-nav">
         <div class="rule">
-          <h2>{seriesInfo[project.data.series!]?.title ?? project.data.series} — the full arc</h2>
+          <h2>
+            {series ? (
+              'The arc'
+            ) : (
+              <>
+                <a href={`/projects/${arcId}/`}>{arcTitle}</a> — the full arc
+              </>
+            )}
+          </h2>
         </div>
         <ol class="ledger">
           {arc.map((p) => (
             <li>
-              {p.id === project.id ? (
+              {p.id === project?.id ? (
                 <span aria-current="page" class="current">
                   <span class="lrow">
                     <span class="t">{p.data.title}</span>
@@ -78,12 +125,32 @@ const arc = project.data.series
                     <span class="t">{p.data.title}</span>
                     {p.data.seriesRole && <small>{p.data.seriesRole}</small>}
                   </span>
+                  {series && p.data.seriesNote && <span class="note">{p.data.seriesNote}</span>}
                 </a>
               )}
             </li>
           ))}
         </ol>
       </aside>
+    )
+  }
+
+  {
+    prev && next && (
+      <nav class="tour" aria-label="More projects">
+        <a href={`/projects/${prev.id}/`} class="prev">
+          <small>Previous project</small>
+          <span class="t">
+            <span class="mark">←</span> {prev.data.title}
+          </span>
+        </a>
+        <a href={`/projects/${next.id}/`} class="next">
+          <small>Next project</small>
+          <span class="t">
+            {next.data.title} <span class="mark">→</span>
+          </span>
+        </a>
+      </nav>
     )
   }
 </Base>
@@ -135,5 +202,61 @@ const arc = project.data.series
   }
   .arc-nav {
     margin-top: 24px;
+  }
+  .tour {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px 28px;
+    flex-wrap: wrap;
+    margin-top: 44px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hair);
+  }
+  .tour a {
+    text-decoration: none;
+    max-width: 46%;
+  }
+  .tour .next {
+    text-align: right;
+    margin-left: auto;
+  }
+  .tour small {
+    display: block;
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .tour .t {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--amber);
+    transition: color 0.15s;
+  }
+  .tour .mark {
+    color: var(--blue);
+  }
+  .tour a:hover .t {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  @media (max-width: 480px) {
+    .tour a,
+    .tour .next {
+      max-width: 100%;
+    }
+  }
+  .rule h2 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .rule h2 a::after {
+    content: ' →';
+    color: var(--blue);
+  }
+  .rule h2 a:hover {
+    color: var(--amber);
   }
 </style>

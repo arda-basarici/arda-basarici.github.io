@@ -8,11 +8,22 @@ Two jobs in one repo:
    published link.
 
 - **Landing page:** https://arda-basarici.github.io — put this in bios.
-- **Per-project redirects** (put these in specific posts / PDF covers):
-  - https://arda-basarici.github.io/pathfinding
-  - https://arda-basarici.github.io/blackjack-betting
-  - https://arda-basarici.github.io/steam-reviews
-  - https://arda-basarici.github.io/blackjack-sim
+- **Project pages** (put these in posts — they carry the pitch, a social preview card, and route
+  onward to report/code): `https://arda-basarici.github.io/projects/<id>/`, e.g.
+  `/projects/blackjack-betting/`, or `/projects/blackjack-rl/` for the whole series.
+- **Short redirects** (for PDF covers and links published before the project pages existed):
+  `/blackjack-betting`, `/pathfinding`, … — full registry in REDIRECTS.md.
+
+## URL contract — what must never change
+
+Once a URL appears in a post or a PDF it is **locked**:
+
+1. **Short redirect routes** (`/<project>`, `/<project>-code`) — the route is permanent; only the
+   redirect _target_ inside the stub may change.
+2. **Project & series page URLs** (`/projects/<id>/`) — permanent from 2026-07-05 on. The `<id>`
+   is the content filename (`src/content/projects/<id>.md`, `src/content/series/<id>.md`), so
+   **renaming a content file breaks a published link** — don't rename; fix titles via the
+   `title` frontmatter, which is free to change.
 
 ## How the redirects work
 
@@ -22,8 +33,10 @@ into the build output verbatim, so the short URL never changes; only the redirec
 
 ## When a repo moves
 
-1. Edit the `url=` in the affected `public/<project>/index.html` (and its fallback `<a href>`).
-2. Update the matching link on the landing page (`src/pages/index.astro`) and REDIRECTS.md.
+Report PDFs are hosted on-site (`public/reports/`), so repo moves only affect the `-code` stubs:
+
+1. Edit the `url=` in the affected `public/<project>-code/index.html` (and its fallback `<a href>`).
+2. Update REDIRECTS.md.
 3. Commit. Every published link that points here now resolves to the new location — no post edits, no
    PDF rebuilds.
 

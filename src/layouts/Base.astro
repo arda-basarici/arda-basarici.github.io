@@ -2,8 +2,6 @@
 // Site shell: midnight-editorial tokens, fonts, nav, footer, and the shared
 // component language (cards, quiet links, ledger, rules, text tiers).
 // Page-specific layout stays in pages.
-import { getImage } from 'astro:assets';
-import portrait from '../assets/portrait.jpeg';
 import { showArticles } from '../data/site';
 
 interface Props {
@@ -13,9 +11,6 @@ interface Props {
 const { title, description } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
-// Portrait doubles as the social-share image (LinkedIn/OG readers want jpeg).
-const ogImage = await getImage({ src: portrait, width: 800, format: 'jpeg' });
-const ogImageURL = new URL(ogImage.src, Astro.site);
 ---
 
 <!doctype html>
@@ -33,7 +28,6 @@ const ogImageURL = new URL(ogImage.src, Astro.site);
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImageURL} />
     <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,6 +129,12 @@ const ogImageURL = new URL(ogImage.src, Astro.site);
         text-decoration: none;
         transition: color 0.15s;
       }
+      /* content clickables carry a marker: → deeper in-site, ↗ leaves (qlink default) */
+      .card h3 a::after {
+        content: ' →';
+        color: var(--blue);
+        font-size: 0.7em;
+      }
       .card h3 a:hover {
         color: var(--amber);
       }
@@ -216,6 +216,11 @@ const ogImageURL = new URL(ogImage.src, Astro.site);
       /* amber = clickable (site-wide qlink convention); .current stays muted */
       .ledger a .t {
         color: var(--amber);
+      }
+      .ledger a .t::after {
+        content: ' →';
+        color: var(--blue);
+        font-size: 0.82em;
       }
       .ledger .t {
         font-weight: 500;
