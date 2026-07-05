@@ -1,13 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { showArticles } from '../../data/site';
+import { showWritings } from '../../data/site';
 
 export async function getStaticPaths() {
-  // Section hidden until the first article ships — same flag as the nav link.
-  if (!showArticles) return [];
-  const articles = await getCollection('articles', ({ data }) => !data.draft);
-  return articles.map((article) => ({
+  // Section gated by the same flag as the nav link.
+  if (!showWritings) return [];
+  const writings = await getCollection('writings', ({ data }) => !data.draft);
+  return writings.map((article) => ({
     params: { slug: article.id },
     props: { article },
   }));

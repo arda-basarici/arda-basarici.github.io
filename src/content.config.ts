@@ -45,8 +45,8 @@ const series = defineCollection({
   }),
 });
 
-const articles = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+const writings = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/writings' }),
   schema: z.object({
     title: z.string(),
     // One-sentence summary: shown on the index and used as the meta description.
@@ -58,4 +58,4 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { projects, series, articles };
+export const collections = { projects, series, writings };

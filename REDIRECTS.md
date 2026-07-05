@@ -17,7 +17,7 @@ Canonical PDFs live in the project repos; when one is re-rendered (e.g. the cove
 refresh its copy in `public/reports/` too.
 
 ## Site pages (claimed by the Astro site, not redirects)
-- `/projects` (+ `/projects/<slug>`), `/about`, `/articles` (+ `/articles/<slug>`)
+- `/projects` (+ `/projects/<slug>`), `/about`, `/writings` (+ `/writings/<slug>`)
 - reserved for future app redirects: `/apps/<name>`
 - **`/projects/<id>/` URLs are LOCKED once published in a post** — the id is the content
   filename; never rename a published project/series markdown file (titles may change via

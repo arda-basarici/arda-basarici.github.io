@@ -2,7 +2,7 @@
 // Site shell: midnight-editorial tokens, fonts, nav, footer, and the shared
 // component language (cards, quiet links, ledger, rules, text tiers).
 // Page-specific layout stays in pages.
-import { showArticles } from '../data/site';
+import { showWritings } from '../data/site';
 
 interface Props {
   title: string;
@@ -343,7 +343,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <nav class="site">
         <a class="brand" href="/">Arda Başarıcı</a>
         <a href="/projects/">Projects</a>
-        {showArticles && <a href="/articles/">Articles</a>}
+        {showWritings && <a href="/writings/">Writings</a>}
         <a href="/about/">About</a>
       </nav>
       <slot />
