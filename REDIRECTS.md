@@ -23,8 +23,8 @@ refresh its copy in `public/reports/` too.
   filename; never rename a published project/series markdown file (titles may change via
   frontmatter). See "URL contract" in README.md.
 
-## Repos (targets under `github.com/arda-basarici/ai-journey`; repoint on repo move)
-- `/blackjack-rl-code` → phase3-deep-learning/blackjack-rl
-- `/blackjack-sim-code` → phase2-data/blackjack-sim
-- `/pathfinding-code` → phase2-data/pathfinding-ml
-- `/steam-reviews-code` → phase2-data/steam-reviews
+## Repos (standalone per-project repos since the 2026-07 restructure; ai-journey archived)
+- `/blackjack-rl-code` → github.com/arda-basarici/blackjack-rl
+- `/blackjack-sim-code` → github.com/arda-basarici/blackjack-sim
+- `/pathfinding-code` → github.com/arda-basarici/pathfinding-ml
+- `/steam-reviews-code` → github.com/arda-basarici/steam-reviews
