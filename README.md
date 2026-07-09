@@ -51,3 +51,8 @@ The site is built with [Astro](https://astro.build) and deployed to GitHub Pages
 - Local dev: `npm install`, then `npm run dev`; `npm run build` writes `dist/`.
 
 _(Optional later: a custom domain in Settings → Pages for `ardabasarici.dev/...`-style links.)_
+
+## License
+
+The site's code is released under the [MIT License](LICENSE). Site content — writings,
+reports, and images — is © 2026 Arda Başarıcı, all rights reserved.
