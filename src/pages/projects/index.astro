@@ -22,22 +22,40 @@ for (const project of all) {
 for (const members of bySeries.values()) {
   members.sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
 }
+
+// Series cards and standalone cards share one ordered list, so a standalone project can
+// out-rank an arc. `order` unset means "no opinion" — those keep collection order, last.
+type Card =
+  | { kind: 'series'; id: string; info?: CollectionEntry<'series'>; members: Project[]; order?: number }
+  | { kind: 'project'; project: Project; order?: number };
+
+const cards: Card[] = [
+  ...[...bySeries.entries()].map(([id, members]): Card => {
+    const info = seriesById.get(id);
+    return { kind: 'series', id, info, members, order: info?.data.order };
+  }),
+  ...standalone.map((project): Card => ({ kind: 'project', project, order: project.data.order })),
+];
+cards.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
 ---
 
 <Base title="Projects — Arda Başarıcı" description="AI/ML projects by Arda Başarıcı.">
   <h1>Projects</h1>
 
   {
-    [...bySeries.entries()].map(([id, members]) => {
-      const info = seriesById.get(id);
-      return (
+    cards.map((card) =>
+      card.kind === 'series' ? (
         <div class="card">
           <h3>
-            <a href={`/projects/${id}/`}>{info?.data.title ?? id}</a>
+            <a href={`/projects/${card.id}/`}>{card.info?.data.title ?? card.id}</a>
           </h3>
-          {info && <p class="desc">{info.data.blurb}</p>}
+          {card.info && (
+            <a class="desc-link" href={`/projects/${card.id}/`} tabindex="-1">
+              <p class="desc">{card.info.data.blurb}</p>
+            </a>
+          )}
           <ol class="ledger">
-            {members.map((p) => (
+            {card.members.map((p) => (
               <li>
                 <a href={`/projects/${p.id}/`}>
                   <span class="lrow">
@@ -48,39 +66,58 @@ for (const members of bySeries.values()) {
                 </a>
               </li>
             ))}
+            {(card.info?.data.roadmap ?? []).map((m) => (
+              <li>
+                <span class="planned">
+                  <span class="lrow">
+                    <span class="t">{m.title}</span>
+                    <span class="tag">under construction</span>
+                  </span>
+                  {m.note && <span class="note">{m.note}</span>}
+                </span>
+              </li>
+            ))}
           </ol>
-        </div>
-      );
-    })
-  }
-
-  <div class="rule"><h2>Standalone</h2></div>
-
-  {
-    standalone.map((p) => (
-      <div class="card">
-        <h3>
-          <a href={`/projects/${p.id}/`}>{p.data.title}</a>
-        </h3>
-        <p class="desc">{p.data.summary}</p>
-        <div class="refs">
-          {p.data.links.report && (
-            <a class="qlink" href={p.data.links.report}>
-              Report (PDF)
-            </a>
-          )}
-          {p.data.links.code && (
-            <a class="qlink" href={p.data.links.code}>
-              Code
-            </a>
-          )}
-          {p.data.links.demo && (
-            <a class="qlink" href={p.data.links.demo}>
-              Live demo
-            </a>
+          {card.info?.data.links.code && (
+            <div class="refs">
+              <a class="qlink" href={card.info.data.links.code}>
+                Code
+              </a>
+              {card.info.data.links.demo && (
+                <a class="qlink" href={card.info.data.links.demo}>
+                  Live demo
+                </a>
+              )}
+            </div>
           )}
         </div>
-      </div>
-    ))
+      ) : (
+        <div class="card">
+          <h3>
+            <a href={`/projects/${card.project.id}/`}>{card.project.data.title}</a>
+          </h3>
+          <a class="desc-link" href={`/projects/${card.project.id}/`} tabindex="-1">
+            <p class="desc">{card.project.data.summary}</p>
+          </a>
+          <div class="refs">
+            {card.project.data.links.report && (
+              <a class="qlink" href={card.project.data.links.report}>
+                Report (PDF)
+              </a>
+            )}
+            {card.project.data.links.code && (
+              <a class="qlink" href={card.project.data.links.code}>
+                Code
+              </a>
+            )}
+            {card.project.data.links.demo && (
+              <a class="qlink" href={card.project.data.links.demo}>
+                Live demo
+              </a>
+            )}
+          </div>
+        </div>
+      )
+    )
   }
 </Base>

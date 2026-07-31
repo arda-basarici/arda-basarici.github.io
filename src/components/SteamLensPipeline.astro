@@ -1,0 +1,413 @@
+---
+/**
+ * SteamLens system diagram — the arc's establishing shot on /projects/steam-lens/.
+ *
+ * Ported from the project repo's `mocks/m1_pipeline_figure_web.html`, which stays the
+ * source of the *content*; this file owns how it behaves on the site. Two rules carried
+ * over from there, both load-bearing:
+ *
+ *  - No measurements. F1s, costs and counts-that-move live in the prose and the report,
+ *    so a living page can never contradict a frozen artifact. Structural identities
+ *    (51 pinned aspects, the 250-review gold set, 49 games, batch N=10) stay: they are
+ *    design facts, not instrument readings.
+ *  - Built and planned are visually distinct. Solid panels are built and measured;
+ *    the dashed rail is roadmap, labelled as not claimed.
+ *
+ * Every class is `p-` prefixed: the figure's natural names (card, desc, rule, node)
+ * collide with the site's globals in Base.astro.
+ */
+---
+
+<figure class="p-fig">
+  <div class="p-scroll">
+    <div class="p-canvas">
+      <header class="p-head">
+        <h2 class="p-h1">
+          SteamLens · the system as it stands
+          <span>Milestone 1 built &amp; measured</span>
+        </h2>
+        <p class="p-sub">
+          From raw Steam reviews to per-game numbers: the model call is the smallest part;
+          the instrument around it is the work.
+        </p>
+      </header>
+
+      <div class="p-stages">
+        <section class="p-panel p-s1">
+          <div class="p-ph"><span class="p-num">1</span><h3>Data</h3></div>
+          <div class="p-node">
+            <b>Review corpus</b><span>49 games · raw Steam reviews</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Usable filter</b><span>English, Unicode-honest non-empty — the usable pool, counted exactly</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Store (SQLite / WAL)</b><span>migration runner · ingest asserts the census size before any spend</span>
+          </div>
+        </section>
+
+        <section class="p-panel p-s2">
+          <div class="p-ph"><span class="p-num">2</span><h3>Labeling engine</h3></div>
+          <div class="p-node">
+            <b>Census driver</b><span>resume by construction · three-pass failure sweep · circuit breakers</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Classify prompt (codebook v2)</b><span>51 pinned aspects · reviews cross as data-never-instructions · batch N=10</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Provider seam</b><span>raw httpx, no SDKs · budget reserved before dispatch · spend ledger</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Label pool + response archive</b><span>version-keyed envelopes · raw output content-addressed, never re-paid</span>
+          </div>
+          <p class="p-stat"><b>One disclosed provider refusal</b> kept in the artifact's arithmetic</p>
+        </section>
+
+        <section class="p-panel p-s3">
+          <div class="p-ph"><span class="p-num">3</span><h3>Number mint</h3></div>
+          <div class="p-node">
+            <b>Survey-origin ∩ version pin</b><span>only origin-tagged survey labels under the pinned versions fold</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Per-game aspect aggregates</b><span>empties in the denominator · raw tallies, no floor</span>
+          </div>
+          <p class="p-stat"><b>Every displayed number</b> mints here · nowhere else</p>
+          <p class="p-wall">
+            <b>THE WALL</b> stories never mint numbers; an import-graph test + origin
+            predicate keep it standing
+          </p>
+        </section>
+
+        <section class="p-panel p-s4">
+          <div class="p-ph"><span class="p-num">4</span><h3>Evaluation instrument</h3></div>
+          <div class="p-node">
+            <b>Human gold set · 250 reviews</b><span>blind-labeled before any model output · versioned in the repo</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Certification of the bought labels</b><span>scored against gold · bootstrap CIs, resampled by review</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>LLM judge · different family</b><span>an independent second annotator · calibrated against gold before use</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Census-sample agreement</b><span>a seeded n=1,000 sample · no evidence of a quality cliff outside gold</span>
+          </div>
+          <p class="p-stat">
+            <b>Quote audit: zero non-verbatim spans</b> in storage · misattribution audit:
+            human, in progress
+          </p>
+        </section>
+
+        <section class="p-panel p-s5">
+          <div class="p-ph"><span class="p-num">5</span><h3>Evals gate CI</h3></div>
+          <div class="p-node">
+            <b>Committed fixture</b><span>both runs of record, rebuilt through the real writer surfaces</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Deterministic re-score</b><span>no fresh model output · catches code / scorer / artifact drift</span>
+          </div>
+          <div class="p-down">↓</div>
+          <div class="p-node">
+            <b>Exact-digit gate</b><span>a digit mismatch fails the build · deliberate change = scorer bump + pins re-exported, same commit</span>
+          </div>
+        </section>
+
+        <aside class="p-rail">
+          <div class="p-railbox">
+            <h3>Built, waiting</h3>
+            <div class="p-node">
+              <b>Steam review client</b><span>the live door: resolve · histogram · windowed fetch — built and live-smoked; on the production path at deployment</span>
+            </div>
+          </div>
+          <div class="p-railbox p-ghost">
+            <h3>Next · not built</h3>
+            <div class="p-node"><b>sampling study</b></div>
+            <div class="p-down">↓</div>
+            <div class="p-node"><b>deployed app</b></div>
+            <div class="p-down">↓</div>
+            <div class="p-node"><b>report chat (grounded)</b></div>
+            <p class="p-railnote">dashed = roadmap, deliberately not claimed as built</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="p-support">
+        <span class="p-slabel">Standing services</span>
+        <span><b>Provenance stamps</b> · run id · code sha · config hash</span>
+        <span><b>Budget caps</b> · atomic reserve-before-dispatch</span>
+        <span><b>Typed errors</b> · world-failing vs promise-keeping never blur</span>
+        <span><b>Narration sink</b> · every stage emits typed progress</span>
+        <span><b>Politeness</b> · one retry-GET chokepoint owns the rate budget</span>
+      </div>
+    </div>
+  </div>
+
+  <figcaption class="p-cap">
+    <strong>The instrument around the model.</strong> Solid panels are built and measured;
+    the dashed rail is roadmap, not claimed as built. Honest limits: one human annotator,
+    disclosed in every artifact; codebook v2 was tuned on gold, so v2-on-gold numbers stay
+    development-grade until a fresh holdout lands; labels re-certify after any re-buy.
+    Scores, intervals and costs live in the text and the report, not in this diagram.
+  </figcaption>
+</figure>
+
+<style>
+  /* Stage hues sit in one lightness band around the site's blue and amber, so no stage
+     shouts louder than another. */
+  .p-fig {
+    --p1: #7fa8c9;
+    --p2: #e0a458;
+    --p3: #8fbf9f;
+    --p4: #a49add;
+    --p5: #cf93a8;
+    /* Break out of the 720px prose column: five stages need room the text doesn't.
+       Width is capped so it stays a figure rather than a banner, and the viewport
+       calc leaves a gutter so it never touches the edges or triggers page scroll. */
+    width: min(1360px, calc(100vw - 40px));
+    margin: 30px 0 34px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* A safety net only — the wrapping grid below should never need it. */
+  .p-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  .p-canvas {
+    border: 1px solid var(--hair);
+    border-radius: 12px;
+    background: var(--card);
+    padding: 20px 22px 22px;
+  }
+
+  .p-head {
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+  }
+  .p-h1 {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--bright);
+    margin: 0;
+    line-height: 1.25;
+  }
+  .p-h1 span {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 0.8em;
+    white-space: nowrap;
+    margin-left: 0.35em;
+  }
+  .p-h1 span::before {
+    content: '— ';
+  }
+  .p-sub {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 6px 0 0;
+    max-width: 78ch;
+  }
+
+  /* Stages wrap instead of insisting on one row: six tracks at a wide viewport,
+     folding to three, two, then one as the width drops. The numbered chips carry the
+     order, so a wrapped row still reads 1 → 5 without arrows between columns. */
+  .p-stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
+    align-items: stretch;
+    gap: 14px;
+  }
+  .p-panel {
+    border: 1.5px solid;
+    border-radius: 12px;
+    background: var(--paper);
+    padding: 12px 11px 13px;
+  }
+  .p-s1 { border-color: #46566b; }
+  .p-s2 { border-color: #6b5a40; }
+  .p-s3 { border-color: #47604f; }
+  .p-s4 { border-color: #575071; border-width: 2.5px; }
+  .p-s5 { border-color: #6b4d58; }
+
+  .p-ph {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 11px;
+  }
+  .p-ph h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .p-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--paper);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .p-s1 .p-num { background: var(--p1); }
+  .p-s2 .p-num { background: var(--p2); }
+  .p-s3 .p-num { background: var(--p3); }
+  .p-s4 .p-num { background: var(--p4); }
+  .p-s5 .p-num { background: var(--p5); }
+  .p-s1 h3 { color: var(--p1); }
+  .p-s2 h3 { color: var(--p2); }
+  .p-s3 h3 { color: var(--p3); }
+  .p-s4 h3 { color: var(--p4); }
+  .p-s5 h3 { color: var(--p5); }
+
+  .p-node {
+    border: 1px solid var(--hair);
+    border-radius: 9px;
+    background: var(--card);
+    padding: 9px 10px;
+    text-align: center;
+  }
+  .p-node b {
+    display: block;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.3;
+    color: var(--bright);
+  }
+  .p-node span {
+    display: block;
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-top: 3px;
+  }
+  .p-down {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .p-stat {
+    margin: 10px 0 0;
+    border-radius: 8px;
+    background: var(--hair);
+    padding: 8px 10px;
+    font-size: 11.5px;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--ink);
+  }
+  .p-stat b { color: var(--bright); }
+
+  /* the two-track wall, inverted to the site's light plate — the one deliberate shout */
+  .p-wall {
+    margin: 10px 0 0;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 9px 10px;
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+  .p-wall b {
+    display: block;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .p-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .p-railbox {
+    border: 1.5px dashed var(--border);
+    border-radius: 11px;
+    background: var(--paper);
+    padding: 11px;
+  }
+  .p-railbox h3 {
+    font-size: 12.5px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .p-ghost { opacity: 0.62; }
+  .p-ghost .p-node {
+    border-style: dashed;
+    background: transparent;
+  }
+  .p-railnote {
+    font-size: 10.5px;
+    color: var(--muted);
+    margin: 7px 0 0;
+    line-height: 1.4;
+  }
+
+  .p-support {
+    margin-top: 16px;
+    border: 1.5px dashed #b97f35;
+    border-radius: 11px;
+    padding: 11px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 22px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .p-support .p-slabel {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+  .p-support b {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  .p-cap {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 12px;
+    max-width: 74ch;
+  }
+  .p-cap strong { color: var(--ink); }
+
+  @media (max-width: 560px) {
+    .p-canvas {
+      padding: 16px 14px 18px;
+    }
+    .p-h1 {
+      font-size: 18px;
+    }
+    .p-h1 span {
+      white-space: normal;
+    }
+    /* Full-bleed stops earning its keep once the column is the whole screen. */
+    .p-fig {
+      width: 100%;
+      margin-left: 0;
+      transform: none;
+    }
+  }
+</style>

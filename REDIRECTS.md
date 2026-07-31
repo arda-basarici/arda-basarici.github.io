@@ -12,6 +12,8 @@ route or `/apps/…` entry to avoid collisions.
 - `/pathfinding` → /reports/pathfinding_report.pdf
 - `/steam-reviews` → /reports/steam_review_report.pdf
 - `/blackjack-sim` → /reports/blackjack_analysis_report.pdf
+- `/steamlens-extraction` → /reports/the-instrument-around-the-model.pdf  — LOCKED (printed on
+  the report's own cover, so the route can never be retired)
 
 Canonical PDFs live in the project repos; when one is re-rendered (e.g. the cover-link fix),
 refresh its copy in `public/reports/` too.
@@ -19,12 +21,17 @@ refresh its copy in `public/reports/` too.
 ## Site pages (claimed by the Astro site, not redirects)
 - `/projects` (+ `/projects/<slug>`), `/about`, `/writings` (+ `/writings/<slug>`)
 - reserved for future app redirects: `/apps/<name>`
-- **`/projects/<id>/` URLs are LOCKED once published in a post** — the id is the content
-  filename; never rename a published project/series markdown file (titles may change via
-  frontmatter). See "URL contract" in README.md.
+- **`/projects/<slug>/` URLs are LOCKED once published in a post** — the slug is frontmatter,
+  not the filename (decoupled 2026-07-31), so files may be renamed freely; never change a
+  published `slug`. See "URL contract" in README.md.
 
 ## Repos (standalone per-project repos since the 2026-07 restructure; ai-journey archived)
 - `/blackjack-rl-code` → github.com/arda-basarici/blackjack-rl
 - `/blackjack-sim-code` → github.com/arda-basarici/blackjack-sim
 - `/pathfinding-code` → github.com/arda-basarici/pathfinding-ml
 - `/steam-reviews-code` → github.com/arda-basarici/steam-reviews
+- `/steam-lens-code` → github.com/arda-basarici/steam-lens
+
+## Reserved, not yet live
+- `/apps/steam-lens` — the SteamLens deployment, when M3 ships. No stub exists yet; a live
+  link goes up only when there is something behind it. Claimed here so nothing else takes it.

@@ -146,6 +146,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         margin: 0 0 18px;
         max-width: 60ch;
       }
+      /* the blurb shares the title's target (as a ledger note shares its row's) — no
+         marker of its own, since the h3 above it already carries one */
+      .desc-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+      }
+      .desc-link:hover .desc {
+        color: var(--ink);
+      }
 
       /* link rows (cards, hero) */
       .refs {
@@ -248,6 +258,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       }
       .ledger .current .t {
         color: var(--muted);
+      }
+      /* roadmap rows: no page to visit yet, so no link affordance */
+      .ledger .planned {
+        display: block;
+        padding: 10px 2px;
+      }
+      .ledger .planned .t,
+      .ledger .planned .lrow::before {
+        color: var(--muted);
+      }
+      .ledger .planned .tag {
+        margin-left: auto;
+        color: var(--muted);
+        font-size: 11.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        white-space: nowrap;
       }
       @media (prefers-reduced-motion: no-preference) {
         .ledger a:hover .lrow::before {

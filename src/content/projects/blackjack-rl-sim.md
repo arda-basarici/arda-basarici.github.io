@@ -1,4 +1,5 @@
 ---
+slug: blackjack-sim
 title: "Monte Carlo Blackjack Simulator"
 summary: >-
   A from-scratch blackjack engine validated against published ground truth before anything was

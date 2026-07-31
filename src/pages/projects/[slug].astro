@@ -35,6 +35,8 @@ const { project, series } = Astro.props;
 
 const entry = (project ?? series)!;
 const { Content } = await render(entry);
+const { report, code, demo } = entry.data.links;
+const hasLinks = Boolean(report || code || demo);
 
 // Arc members: for a series page, its own members; for a project page, its siblings.
 const arcId = series?.id ?? project?.data.series;
@@ -43,9 +45,13 @@ const arc = arcId
       await getCollection('projects', ({ data }) => !data.draft && data.series === arcId)
     ).sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0))
   : [];
+const arcEntry =
+  series ?? (arcId ? (await getCollection('series')).find((s) => s.id === arcId) : undefined);
 const arcTitle = series
   ? null // the series page's h1 already names the arc
-  : (await getCollection('series')).find((s) => s.id === arcId)?.data.title ?? arcId;
+  : arcEntry?.data.title ?? arcId;
+// Milestones with no page yet — shown after the built ones, unlinked.
+const roadmap = arcEntry?.data.roadmap ?? [];
 
 // Prev/next tour across all projects (series members in arc order, then
 // standalones), wrapping at the ends so no page is a dead end.
@@ -70,20 +76,20 @@ const next = project ? tour[(at + 1) % tour.length] : null;
     <h1>{entry.data.title}</h1>
     {entry.data.demonstrates && <p class="demonstrates">{entry.data.demonstrates}</p>}
     {
-      project && (
+      hasLinks && (
         <div class="refs">
-          {project.data.links.report && (
-            <a class="qlink" href={project.data.links.report}>
+          {report && (
+            <a class="qlink" href={report}>
               Report (PDF)
             </a>
           )}
-          {project.data.links.code && (
-            <a class="qlink" href={project.data.links.code}>
+          {code && (
+            <a class="qlink" href={code}>
               Code
             </a>
           )}
-          {project.data.links.demo && (
-            <a class="qlink" href={project.data.links.demo}>
+          {demo && (
+            <a class="qlink" href={demo}>
               Live demo
             </a>
           )}
@@ -96,7 +102,9 @@ const next = project ? tour[(at + 1) % tour.length] : null;
   </article>
 
   {
-    arc.length > 1 && (
+    /* A series page lists its milestones even when there is only one — otherwise the
+       overview has no route to the work. On a member page a one-item arc is just itself. */
+    (series ? arc.length >= 1 : arc.length + roadmap.length > 1) && (
       <aside class="arc-nav">
         <div class="rule">
           <h2>
@@ -128,6 +136,17 @@ const next = project ? tour[(at + 1) % tour.length] : null;
                   {series && p.data.seriesNote && <span class="note">{p.data.seriesNote}</span>}
                 </a>
               )}
+            </li>
+          ))}
+          {roadmap.map((m) => (
+            <li>
+              <span class="planned">
+                <span class="lrow">
+                  <span class="t">{m.title}</span>
+                  <span class="tag">under construction</span>
+                </span>
+                {m.note && <span class="note">{m.note}</span>}
+              </span>
             </li>
           ))}
         </ol>

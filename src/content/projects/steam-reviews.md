@@ -1,4 +1,5 @@
 ---
+slug: steam-reviews
 title: "Steam Review Intelligence"
 summary: >-
   What does a Steam rating actually measure? 298k reviews, 50 games, 30 languages — four

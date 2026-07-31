@@ -20,10 +20,16 @@ Once a URL appears in a post or a PDF it is **locked**:
 
 1. **Short redirect routes** (`/<project>`, `/<project>-code`) — the route is permanent; only the
    redirect _target_ inside the stub may change.
-2. **Project & series page URLs** (`/projects/<id>/`) — permanent from 2026-07-05 on. The `<id>`
-   is the content filename (`src/content/projects/<id>.md`, `src/content/series/<id>.md`), so
-   **renaming a content file breaks a published link** — don't rename; fix titles via the
-   `title` frontmatter, which is free to change.
+2. **Project & series page URLs** (`/projects/<slug>/`) — permanent from 2026-07-05 on. The
+   `<slug>` comes from the file's `slug` frontmatter, **not** from its filename (decoupled
+   2026-07-31), so content files can be renamed and reorganized freely. Never change a
+   published `slug`; `title` is free to change. A file without a `slug` fails the build.
+
+**Naming content files** (an internal concern, invisible to the URL): a series member's
+filename starts with its series slug — `src/content/projects/<series>-<member>.md`, e.g.
+`blackjack-rl-policy-audit.md` — so the arc a page belongs to is readable straight from the
+file list. The blackjack four were renamed into this shape on 2026-07-31 while keeping their
+published URLs (`/projects/policy-audit/` and friends) via their `slug` fields.
 
 ## How the redirects work
 

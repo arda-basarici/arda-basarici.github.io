@@ -1,4 +1,5 @@
 ---
+slug: table-to-network
 title: "From Table to Network"
 summary: >-
   Does neural generalization repair the table's coverage gaps? Some — and it distorts the sharp

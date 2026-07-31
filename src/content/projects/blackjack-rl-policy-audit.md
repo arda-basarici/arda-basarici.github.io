@@ -1,4 +1,5 @@
 ---
+slug: policy-audit
 title: "The Policy Audit"
 summary: >-
   Can tabular Monte-Carlo control rediscover blackjack's proven-optimal strategy from win/loss

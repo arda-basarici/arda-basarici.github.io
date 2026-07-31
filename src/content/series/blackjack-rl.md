@@ -1,4 +1,5 @@
 ---
+slug: blackjack-rl
 title: "Blackjack RL"
 blurb: >-
   A four-part research arc: a measurement instrument that had to earn trust first, then one
@@ -8,6 +9,7 @@ blurb: >-
 demonstrates: >-
   Evaluation-first ML end-to-end — instrument validation, reference-anchored audits,
   controlled ablations, adversarial self-falsification — Python, PyTorch, tabular and deep RL.
+order: 2
 ---
 
 Four studies, one experimental design: give a learning system a domain where the truth is

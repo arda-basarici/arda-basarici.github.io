@@ -1,4 +1,5 @@
 ---
+slug: blackjack-betting
 title: "Betting Against the Noise"
 summary: >-
   Can an RL agent learn Kelly bet-sizing from nothing but its own wins and losses? No — it

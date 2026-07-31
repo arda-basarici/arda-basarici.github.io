@@ -1,4 +1,5 @@
 ---
+slug: pathfinding
 title: "Learning to Guess the Distance"
 summary: >-
   A learned A* heuristic that looked like a wash — until the pooled average was split and two

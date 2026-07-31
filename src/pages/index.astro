@@ -70,7 +70,9 @@ const featuredBlocks = featured.map((entry) => {
           <h3>
             <a href={`/projects/${block.id}/`}>{block.info.data.title}</a>
           </h3>
-          <p class="desc">{block.info.data.blurb}</p>
+          <a class="desc-link" href={`/projects/${block.id}/`} tabindex="-1">
+            <p class="desc">{block.info.data.blurb}</p>
+          </a>
           <ol class="ledger">
             {block.members.map((p) => (
               <li>
@@ -83,14 +85,39 @@ const featuredBlocks = featured.map((entry) => {
                 </a>
               </li>
             ))}
+            {block.info.data.roadmap.map((m) => (
+              <li>
+                <span class="planned">
+                  <span class="lrow">
+                    <span class="t">{m.title}</span>
+                    <span class="tag">under construction</span>
+                  </span>
+                  {m.note && <span class="note">{m.note}</span>}
+                </span>
+              </li>
+            ))}
           </ol>
+          {block.info.data.links.code && (
+            <div class="refs">
+              <a class="qlink" href={block.info.data.links.code}>
+                Code
+              </a>
+              {block.info.data.links.demo && (
+                <a class="qlink" href={block.info.data.links.demo}>
+                  Live demo
+                </a>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <div class="card">
           <h3>
             <a href={`/projects/${block.project.id}/`}>{block.project.data.title}</a>
           </h3>
-          <p class="desc">{block.project.data.summary}</p>
+          <a class="desc-link" href={`/projects/${block.project.id}/`} tabindex="-1">
+            <p class="desc">{block.project.data.summary}</p>
+          </a>
           <div class="refs">
             {block.project.data.links.report && (
               <a class="qlink" href={block.project.data.links.report}>
