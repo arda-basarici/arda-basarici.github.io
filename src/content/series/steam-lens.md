@@ -37,7 +37,7 @@ needs before its numbers stop moving, with the error bars' 95% promise measured 
 assumed. Next the product itself, behind a public URL. Then a grounded chat that lets you
 interrogate a finished report against the labeled corpus rather than against a model's memory.
 
-**Milestones 1 and 2 — extraction and evaluation, then the sampling study — are built and
+**Milestones 1 and 2 (extraction and evaluation, then the sampling study) are built and
 measured; nothing is deployed yet.** This page will say a system is running when one is.
 
 ## What it demonstrates
