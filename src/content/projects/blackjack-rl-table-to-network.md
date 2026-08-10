@@ -1,6 +1,7 @@
 ---
 slug: table-to-network
 title: "From Table to Network"
+seoTitle: "DQN vs Tabular Q-Learning in Blackjack: What Approximation Costs"
 summary: >-
   Does neural generalization repair the table's coverage gaps? Some — and it distorts the sharp
   boundaries in exchange, paying for smoothness exactly where one point flips the correct

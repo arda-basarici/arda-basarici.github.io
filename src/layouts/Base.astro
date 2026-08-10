@@ -7,8 +7,11 @@ import { showWritings } from '../data/site';
 interface Props {
   title: string;
   description?: string;
+  // Search-facing <title> override; `title` keeps serving og:title so shares
+  // stay in the site's editorial voice while the tab/snippet carries query terms.
+  seoTitle?: string;
 }
-const { title, description } = Astro.props;
+const { title, description, seoTitle } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -20,7 +23,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#14161b" />
-    <title>{title}</title>
+    <title>{seoTitle ?? title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

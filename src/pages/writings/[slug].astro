@@ -18,9 +18,27 @@ const { Content } = await render(article);
 
 const formatDate = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// Article structured data (JSON-LD): the piece's real dates and description,
+// tied to the same Person the landing page asserts.
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.data.title,
+  description: article.data.description,
+  datePublished: article.data.date.toISOString(),
+  dateModified: (article.data.updated ?? article.data.date).toISOString(),
+  author: { '@type': 'Person', name: 'Arda Başarıcı', url: new URL('/', Astro.site) },
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site),
+};
 ---
 
-<Base title={`${article.data.title} — Arda Başarıcı`} description={article.data.description}>
+<Base
+  title={`${article.data.title} — Arda Başarıcı`}
+  seoTitle={article.data.seoTitle && `${article.data.seoTitle} — Arda Başarıcı`}
+  description={article.data.description}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <article>
     <h1>{article.data.title}</h1>
     <p class="meta">

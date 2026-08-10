@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import PersonJsonLd from '../components/PersonJsonLd.astro';
 import portrait from '../assets/portrait.jpeg';
 ---
 
@@ -8,6 +9,7 @@ import portrait from '../assets/portrait.jpeg';
   title="About — Arda Başarıcı"
   description="Mathematics → game development → Data, ML, and AI. Building a portfolio in public."
 >
+  <PersonJsonLd />
   <article>
     <div class="head">
       <div>

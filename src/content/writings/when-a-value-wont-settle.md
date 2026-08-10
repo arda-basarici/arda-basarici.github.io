@@ -1,5 +1,6 @@
 ---
 title: "When a Value Won't Settle"
+seoTitle: "Six Lessons from a Stubborn DQN Investigation"
 description: >-
   Six ideas sharpened by a stubborn DQN investigation — encoding, averaging, risk, feedback
   loops, objective vs. estimator, and the irreducible floor — each traced from first instinct

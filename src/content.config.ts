@@ -37,6 +37,10 @@ const projects = defineCollection({
       // The locked public URL: /projects/<slug>/. Change a filename freely; never this.
       slug: z.string(),
       title: z.string(),
+      // Search-facing <title> override: the editorial title stays on the page, in
+      // shares, and in structured data; this one carries the terms someone would
+      // actually query. Absent → `title` serves both roles.
+      seoTitle: z.string().optional(),
       // Card-level one-paragraph pitch: the finding, not just the topic.
       summary: z.string(),
       // One line: what skills/toolset this project evidences.
@@ -70,6 +74,8 @@ const series = defineCollection({
     // The locked public URL: /projects/<slug>/. Members point at it via their `series`.
     slug: z.string(),
     title: z.string(),
+    // Search-facing <title> override — same contract as the projects field.
+    seoTitle: z.string().optional(),
     // Card-level one-paragraph pitch for the whole arc.
     blurb: z.string(),
     // One line: what skills/toolset the series evidences end-to-end.
@@ -99,6 +105,8 @@ const writings = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/writings' }),
   schema: z.object({
     title: z.string(),
+    // Search-facing <title> override — same contract as the projects field.
+    seoTitle: z.string().optional(),
     // One-sentence summary: shown on the index and used as the meta description.
     description: z.string(),
     date: z.coerce.date(),

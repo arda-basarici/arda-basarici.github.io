@@ -70,6 +70,7 @@ const next = project ? tour[(at + 1) % tour.length] : null;
 
 <Base
   title={`${entry.data.title} — Arda Başarıcı`}
+  seoTitle={entry.data.seoTitle && `${entry.data.seoTitle} — Arda Başarıcı`}
   description={project ? project.data.summary : series!.data.blurb}
 >
   <article>

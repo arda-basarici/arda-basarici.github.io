@@ -1,6 +1,7 @@
 ---
 slug: policy-audit
 title: "The Policy Audit"
+seoTitle: "Auditing a Q-Learned Blackjack Policy Against Basic Strategy"
 summary: >-
   Can tabular Monte-Carlo control rediscover blackjack's proven-optimal strategy from win/loss
   alone? ~93% — and the audit of the missing 7% is the real result. The agent isn't wrong where

@@ -1,6 +1,7 @@
 ---
 slug: blackjack-rl
 title: "Blackjack RL"
+seoTitle: "Blackjack Reinforcement Learning: Can RL Rediscover Optimal Play?"
 blurb: >-
   A four-part research arc: a measurement instrument that had to earn trust first, then one
   question asked three times with the ground truth progressively removed — can learning

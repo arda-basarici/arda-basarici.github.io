@@ -1,0 +1,20 @@
+---
+// Person structured data (JSON-LD) for the pages that are about me (landing,
+// About). sameAs is the identity assertion — it tells search engines these
+// profiles and this site are the same person, which is what consolidates the
+// name-query results. Keep it to profiles actually maintained.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Arda Başarıcı',
+  url: new URL('/', Astro.site),
+  jobTitle: 'Software Engineer',
+  sameAs: [
+    'https://github.com/arda-basarici',
+    'https://www.linkedin.com/in/ardabasarici',
+    'https://x.com/ardabasarici',
+  ],
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(person)} />
