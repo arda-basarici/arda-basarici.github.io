@@ -1,6 +1,7 @@
 # Redirects & locked URLs
 
-Stable short-URLs (`arda-basarici.github.io/<route>`) used in posts + report covers. Each is a
+Stable short-URLs (`ardabasarici.dev/<route>`; the pre-2026-08-10 `arda-basarici.github.io`
+form 301s to the same path) used in posts + report covers. Each is a
 folder under `public/` with an `index.html` meta-refresh (copied verbatim into the build).
 This file is the registry of ALL claimed routes — check it before adding any new top-level
 route or `/apps/…` entry to avoid collisions.

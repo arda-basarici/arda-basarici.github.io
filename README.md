@@ -2,14 +2,16 @@
 
 Two jobs in one repo:
 
-1. **Portfolio site** — `https://arda-basarici.github.io` presents the projects.
+1. **Portfolio site** — `https://ardabasarici.dev` presents the projects. (The repo keeps its
+   GitHub Pages origin name; every `arda-basarici.github.io` URL 301-redirects to the same
+   path on the domain.)
 2. **Stable link layer** — published posts and PDFs point at URLs _here_, never at deep repo paths, so
    when a project repo moves or gets restructured I edit **one file here** instead of chasing every
    published link.
 
-- **Landing page:** https://arda-basarici.github.io — put this in bios.
+- **Landing page:** https://ardabasarici.dev — put this in bios.
 - **Project pages** (put these in posts — they carry the pitch, a social preview card, and route
-  onward to report/code): `https://arda-basarici.github.io/projects/<id>/`, e.g.
+  onward to report/code): `https://ardabasarici.dev/projects/<id>/`, e.g.
   `/projects/blackjack-betting/`, or `/projects/blackjack-rl/` for the whole series.
 - **Short redirects** (for PDF covers and links published before the project pages existed):
   `/blackjack-betting`, `/pathfinding`, … — full registry in REDIRECTS.md.
@@ -24,6 +26,11 @@ Once a URL appears in a post or a PDF it is **locked**:
    `<slug>` comes from the file's `slug` frontmatter, **not** from its filename (decoupled
    2026-07-31), so content files can be renamed and reorganized freely. Never change a
    published `slug`; `title` is free to change. A file without a `slug` fails the build.
+3. **The domain** — `ardabasarici.dev` is canonical since 2026-08-10; new posts and covers
+   use it. Everything published earlier used `arda-basarici.github.io`, and GitHub
+   301-redirects every github.io path to the same path on the domain — but only while the
+   custom domain stays configured in Settings → Pages, so that setting is itself part of
+   the contract: removing it breaks every pre-2026-08-10 published link.
 
 **Naming content files** (an internal concern, invisible to the URL): a series member's
 filename starts with its series slug — `src/content/projects/<series>-<member>.md`, e.g.
@@ -56,7 +63,19 @@ The site is built with [Astro](https://astro.build) and deployed to GitHub Pages
 - `public/` — copied verbatim into the build: redirect stubs, `.nojekyll`
 - Local dev: `npm install`, then `npm run dev`; `npm run build` writes `dist/`.
 
-_(Optional later: a custom domain in Settings → Pages for `ardabasarici.dev/...`-style links.)_
+### Custom domain (live since 2026-08-10)
+
+`ardabasarici.dev` is served by Pages via the repo's Settings → Pages → Custom domain
+(+ Enforce HTTPS). DNS lives on Cloudflare:
+
+- apex `@` and `www` — CNAME → `arda-basarici.github.io`, **DNS-only (grey cloud)**.
+  Grey because GitHub's certificate automation must see the domain pointing directly at
+  it, and there is no origin IP to hide — the origin is GitHub's public CDN. (The
+  proxied orange `steamlens.` record guards a real box; different origin, different
+  rule.) Cloudflare flattens the apex CNAME to A records automatically.
+- `_github-pages-challenge-arda-basarici` TXT — the account-level domain verification
+  (github.com → Settings → Pages → verified domains). It is re-checked periodically and
+  must stay.
 
 ## License
 
