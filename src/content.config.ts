@@ -9,9 +9,10 @@ import { z } from 'astro/zod';
 // the deployment.
 const links = z
   .object({
-    report: z.string().optional(),
+    // Display order everywhere: app, code, report — descending immediacy for the reader.
+    app: z.string().optional(),
     code: z.string().optional(),
-    demo: z.string().optional(),
+    report: z.string().optional(),
   })
   .default({});
 

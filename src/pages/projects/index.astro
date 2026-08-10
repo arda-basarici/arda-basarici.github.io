@@ -78,14 +78,16 @@ cards.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
               </li>
             ))}
           </ol>
-          {card.info?.data.links.code && (
+          {(card.info?.data.links.app || card.info?.data.links.code) && (
             <div class="refs">
-              <a class="qlink" href={card.info.data.links.code}>
-                Code
-              </a>
-              {card.info.data.links.demo && (
-                <a class="qlink" href={card.info.data.links.demo}>
-                  Live demo
+              {card.info?.data.links.app && (
+                <a class="qlink" href={card.info.data.links.app} target="_blank" rel="noopener">
+                  Live app
+                </a>
+              )}
+              {card.info?.data.links.code && (
+                <a class="qlink" href={card.info.data.links.code}>
+                  Code
                 </a>
               )}
             </div>
@@ -100,9 +102,9 @@ cards.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
             <p class="desc">{card.project.data.summary}</p>
           </a>
           <div class="refs">
-            {card.project.data.links.report && (
-              <a class="qlink" href={card.project.data.links.report}>
-                Report (PDF)
+            {card.project.data.links.app && (
+              <a class="qlink" href={card.project.data.links.app} target="_blank" rel="noopener">
+                Live app
               </a>
             )}
             {card.project.data.links.code && (
@@ -110,9 +112,9 @@ cards.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
                 Code
               </a>
             )}
-            {card.project.data.links.demo && (
-              <a class="qlink" href={card.project.data.links.demo}>
-                Live demo
+            {card.project.data.links.report && (
+              <a class="qlink" href={card.project.data.links.report}>
+                Report (PDF)
               </a>
             )}
           </div>

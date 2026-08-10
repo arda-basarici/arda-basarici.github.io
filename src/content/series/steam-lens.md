@@ -11,6 +11,7 @@ demonstrates: >-
   Python, structured extraction at census scale.
 order: 1
 links:
+  app: https://steamlens.ardabasarici.dev
   code: https://github.com/arda-basarici/steam-lens
 roadmap:
   - title: 'The Deployed Product'

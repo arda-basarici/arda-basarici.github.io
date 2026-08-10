@@ -35,8 +35,8 @@ const { project, series } = Astro.props;
 
 const entry = (project ?? series)!;
 const { Content } = await render(entry);
-const { report, code, demo } = entry.data.links;
-const hasLinks = Boolean(report || code || demo);
+const { app, code, report } = entry.data.links;
+const hasLinks = Boolean(app || code || report);
 
 // Arc members: for a series page, its own members; for a project page, its siblings.
 const arcId = series?.id ?? project?.data.series;
@@ -80,9 +80,9 @@ const next = project ? tour[(at + 1) % tour.length] : null;
     {
       hasLinks && (
         <div class="refs">
-          {report && (
-            <a class="qlink" href={report}>
-              Report (PDF)
+          {app && (
+            <a class="qlink" href={app} target="_blank" rel="noopener">
+              Live app
             </a>
           )}
           {code && (
@@ -90,9 +90,9 @@ const next = project ? tour[(at + 1) % tour.length] : null;
               Code
             </a>
           )}
-          {demo && (
-            <a class="qlink" href={demo}>
-              Live demo
+          {report && (
+            <a class="qlink" href={report}>
+              Report (PDF)
             </a>
           )}
         </div>

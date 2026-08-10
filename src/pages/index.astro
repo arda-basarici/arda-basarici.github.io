@@ -99,14 +99,16 @@ const featuredBlocks = featured.map((entry) => {
               </li>
             ))}
           </ol>
-          {block.info.data.links.code && (
+          {(block.info.data.links.app || block.info.data.links.code) && (
             <div class="refs">
-              <a class="qlink" href={block.info.data.links.code}>
-                Code
-              </a>
-              {block.info.data.links.demo && (
-                <a class="qlink" href={block.info.data.links.demo}>
-                  Live demo
+              {block.info.data.links.app && (
+                <a class="qlink" href={block.info.data.links.app} target="_blank" rel="noopener">
+                  Live app
+                </a>
+              )}
+              {block.info.data.links.code && (
+                <a class="qlink" href={block.info.data.links.code}>
+                  Code
                 </a>
               )}
             </div>
@@ -121,9 +123,9 @@ const featuredBlocks = featured.map((entry) => {
             <p class="desc">{block.project.data.summary}</p>
           </a>
           <div class="refs">
-            {block.project.data.links.report && (
-              <a class="qlink" href={block.project.data.links.report}>
-                Report (PDF)
+            {block.project.data.links.app && (
+              <a class="qlink" href={block.project.data.links.app} target="_blank" rel="noopener">
+                Live app
               </a>
             )}
             {block.project.data.links.code && (
@@ -131,9 +133,9 @@ const featuredBlocks = featured.map((entry) => {
                 Code
               </a>
             )}
-            {block.project.data.links.demo && (
-              <a class="qlink" href={block.project.data.links.demo}>
-                Live demo
+            {block.project.data.links.report && (
+              <a class="qlink" href={block.project.data.links.report}>
+                Report (PDF)
               </a>
             )}
           </div>
