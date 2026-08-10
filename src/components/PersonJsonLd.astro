@@ -3,8 +3,14 @@
 // About). sameAs is the identity assertion — it tells search engines these
 // profiles and this site are the same person, which is what consolidates the
 // name-query results. Keep it to profiles actually maintained.
+// `profilePage` wraps the Person in Google's ProfilePage type — for the one
+// page that IS the profile (the landing page), not every page that mentions me.
+interface Props {
+  profilePage?: boolean;
+}
+const { profilePage = false } = Astro.props;
+
 const person = {
-  '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Arda Başarıcı',
   url: new URL('/', Astro.site),
@@ -15,6 +21,10 @@ const person = {
     'https://x.com/ardabasarici',
   ],
 };
+
+const schema = profilePage
+  ? { '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: person }
+  : { '@context': 'https://schema.org', ...person };
 ---
 
-<script is:inline type="application/ld+json" set:html={JSON.stringify(person)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

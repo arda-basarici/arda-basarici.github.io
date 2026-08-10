@@ -2,6 +2,8 @@
 slug: blackjack-rl
 title: "Blackjack RL"
 seoTitle: "Blackjack Reinforcement Learning: Can RL Rediscover Optimal Play?"
+ogSubtitle: Can reinforcement learning rediscover optimal play?
+ogTags: [Reinforcement Learning, DQN, Kelly Criterion]
 blurb: >-
   A four-part research arc: a measurement instrument that had to earn trust first, then one
   question asked three times with the ground truth progressively removed — can learning

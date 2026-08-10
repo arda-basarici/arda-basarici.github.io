@@ -2,6 +2,7 @@
 slug: steam-reviews
 title: "Steam Review Intelligence"
 seoTitle: "What Does a Steam Rating Measure? 298k Reviews Analyzed"
+ogTags: [Data Pipeline, Validation, 298k Reviews]
 summary: >-
   What does a Steam rating actually measure? 298k reviews, 50 games, 30 languages — four
   findings about when players review, whether they stay, how they write, and who they are, each

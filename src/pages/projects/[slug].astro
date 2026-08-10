@@ -72,6 +72,7 @@ const next = project ? tour[(at + 1) % tour.length] : null;
   title={`${entry.data.title} — Arda Başarıcı`}
   seoTitle={entry.data.seoTitle && `${entry.data.seoTitle} — Arda Başarıcı`}
   description={project ? project.data.summary : series!.data.blurb}
+  ogImage={`/og/${entry.id}.png`}
 >
   <article>
     <h1>{entry.data.title}</h1>

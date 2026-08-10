@@ -2,6 +2,8 @@
 slug: steam-lens-sampling
 title: 'Sampling Without Random Access'
 seoTitle: 'Sampling Steam Reviews Without Random Access: Confidence Intervals'
+ogSubtitle: Confidence intervals when uniform sampling isn't available
+ogTags: [Survey Sampling, Confidence Intervals, Steam Reviews]
 summary: >-
   A live product cannot spend a census on every query. This milestone measures that it never
   has to: a fresh game's report needs at most 2,000 fetched reviews, and every displayed share

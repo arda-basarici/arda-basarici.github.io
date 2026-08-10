@@ -2,6 +2,7 @@
 slug: pathfinding
 title: "Learning to Guess the Distance"
 seoTitle: "Learning an A* Heuristic with Gradient Boosting"
+ogTags: [Gradient Boosting, A* Search, Distribution Shift]
 summary: >-
   A learned A* heuristic that looked like a wash — until the pooled average was split and two
   opposite effects appeared. One regime-tag feature turns it into 17% less search at a 0.2%

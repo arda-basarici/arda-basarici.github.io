@@ -37,6 +37,7 @@ const articleSchema = {
   title={`${article.data.title} — Arda Başarıcı`}
   seoTitle={article.data.seoTitle && `${article.data.seoTitle} — Arda Başarıcı`}
   description={article.data.description}
+  ogImage={`/og/${article.id}.png`}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <article>

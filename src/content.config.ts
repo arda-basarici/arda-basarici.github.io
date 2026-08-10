@@ -41,6 +41,12 @@ const projects = defineCollection({
       // shares, and in structured data; this one carries the terms someone would
       // actually query. Absent → `title` serves both roles.
       seoTitle: z.string().optional(),
+      // Share-card (OG image) fields, consumed by scripts/og — not rendered on pages.
+      // Subtitle defaults to seoTitle (minus a leading "<title>: " echo); override
+      // only where that default reads awkwardly. Tags are 3–4 human-readable
+      // scanning aids (display text, not slugs); the subtitle carries the semantics.
+      ogSubtitle: z.string().optional(),
+      ogTags: z.array(z.string()).max(4).optional(),
       // Card-level one-paragraph pitch: the finding, not just the topic.
       summary: z.string(),
       // One line: what skills/toolset this project evidences.
@@ -76,6 +82,9 @@ const series = defineCollection({
     title: z.string(),
     // Search-facing <title> override — same contract as the projects field.
     seoTitle: z.string().optional(),
+    // Share-card fields — same contract as the projects fields.
+    ogSubtitle: z.string().optional(),
+    ogTags: z.array(z.string()).max(4).optional(),
     // Card-level one-paragraph pitch for the whole arc.
     blurb: z.string(),
     // One line: what skills/toolset the series evidences end-to-end.
@@ -107,6 +116,9 @@ const writings = defineCollection({
     title: z.string(),
     // Search-facing <title> override — same contract as the projects field.
     seoTitle: z.string().optional(),
+    // Share-card fields — same contract as the projects fields.
+    ogSubtitle: z.string().optional(),
+    ogTags: z.array(z.string()).max(4).optional(),
     // One-sentence summary: shown on the index and used as the meta description.
     description: z.string(),
     date: z.coerce.date(),

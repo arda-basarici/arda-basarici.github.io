@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* 1200x630 per-page share card in the site's midnight-editorial tokens
+     (mirrors src/layouts/Base.astro). Field values are injected by generate.mjs;
+     the hierarchy must read top-down even if the footer row is cropped by a
+     platform's preview: name/context, editorial title, technical subtitle. */
+  :root {
+    --paper: #14161b;
+    --card: #1c1f26;
+    --ink: #e9e6df;
+    --bright: #f6f3ea;
+    --muted: #9a968c;
+    --hair: #2b2f38;
+    --border: #3a3f4a;
+    --shadow: #0b0c0f;
+    --amber: #e0a458;
+    --blue: #7fa8c9;
+    --serif: Newsreader, Georgia, serif;
+    --sans: Inter, -apple-system, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+  .card {
+    width: 1040px;
+    height: 470px;
+    background: var(--card);
+    border: 3px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 12px 12px 0 var(--shadow);
+    padding: 56px 76px 50px;
+    display: flex;
+    flex-direction: column;
+  }
+  .kicker {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 21px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .kicker .name { color: var(--muted); }
+  .kicker .type { color: var(--blue); }
+  .title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: {{TITLE_SIZE}}px;
+    line-height: 1.1;
+    color: var(--bright);
+    margin-top: auto;
+  }
+  .subtitle {
+    font-size: 31px;
+    line-height: 1.35;
+    color: var(--muted);
+    margin-top: 20px;
+  }
+  .footer {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--hair);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 22px;
+  }
+  .tags { color: var(--blue); }
+  .tags .sep { color: var(--muted); padding: 0 8px; }
+  .domain { color: var(--amber); font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="kicker">
+      <span class="name">Arda Başarıcı</span>
+      <span class="type">{{KICKER}}</span>
+    </div>
+    <div class="title">{{TITLE}}</div>
+    <div class="subtitle">{{SUBTITLE}}</div>
+    <div class="footer">
+      <span class="tags">{{TAGS}}</span>
+      <span class="domain">ardabasarici.dev</span>
+    </div>
+  </div>
+</body>
+</html>

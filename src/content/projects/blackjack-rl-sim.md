@@ -1,6 +1,8 @@
 ---
 slug: blackjack-sim
 title: "Monte Carlo Blackjack Simulator"
+ogSubtitle: Basic strategy and card counting, measured from the ground up
+ogTags: [Monte Carlo, Basic Strategy, Card Counting]
 summary: >-
   A from-scratch blackjack engine validated against published ground truth before anything was
   built on it: ~80M hands, pluggable strategies, card counting, reproducible by construction.

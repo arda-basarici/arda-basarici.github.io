@@ -2,6 +2,7 @@
 slug: steam-lens-extraction
 title: 'The Instrument Around the Model'
 seoTitle: 'Evaluating LLM Extraction Against a Human Gold Set'
+ogTags: [Gold Set, LLM-as-Judge, Aspect Extraction]
 summary: >-
   Does the model reading 135,260 Steam reviews actually work, and how would anyone know? Every
   usable review across 49 games, labeled end to end for $3.80, with the labeler's measured
