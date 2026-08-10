@@ -18,8 +18,9 @@ seriesNote: >-
   How few reviews a report actually needs: a size rule validated on games it never trained on,
   with the distance from uniform sampling measured and priced instead of pretended away.
 links:
-  report: /reports/sampling-without-random-access.pdf
+  app: https://steamlens.ardabasarici.dev
   code: https://github.com/arda-basarici/steam-lens
+  report: /reports/sampling-without-random-access.pdf
 date: 2026-08-05
 ---
 

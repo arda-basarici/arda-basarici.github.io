@@ -18,8 +18,9 @@ seriesNote: >-
   The measuring device before the product: a census labeled for $3.80, and its error measured
   against human judgment rather than asserted.
 links:
-  report: /reports/the-instrument-around-the-model.pdf
+  app: https://steamlens.ardabasarici.dev
   code: https://github.com/arda-basarici/steam-lens
+  report: /reports/the-instrument-around-the-model.pdf
 date: 2026-07-31
 ---
 
