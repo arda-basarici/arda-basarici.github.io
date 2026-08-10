@@ -30,7 +30,7 @@ control converges toward expert play from nothing but end-of-hand win/loss (it d
 
 ## What the audit found
 
-The agent rediscovers about **93%** of the table. That pooled number is true and nearly
+The agent rediscovers about **93%** of basic strategy — the proven-optimal table. That pooled number is true and nearly
 useless. Conditioned on decision type, the error is anything but uniform — a 16× spread, with
 hard totals near-perfect and the mistakes pooled in soft hands and doubles. Severity spans a
 twenty-fold range: the game's most balanced decision (hard 16 vs. 10) is "wrong" on an EV gap

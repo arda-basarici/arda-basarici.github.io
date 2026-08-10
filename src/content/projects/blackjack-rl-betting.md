@@ -23,8 +23,9 @@ links:
 ---
 
 You have a genuine edge on a bet — how much should you wager? There's a formula for the
-optimal amount, known since 1956: the Kelly criterion. This study asks whether a model could
-learn that sizing rule on its own — from nothing but its own wins and losses — instead of
+optimal amount, known since 1956: the Kelly criterion. This study asks whether a
+reinforcement-learning agent could learn that sizing rule on its own — from nothing but its
+own wins and losses — instead of
 being handed the formula. Blackjack is the cleanest possible testbed: card counting is a rare
 case where the edge can be measured precisely (here, over 20 million hands — break-even lands
 at true count +0.76, right where the folklore says) and the optimal bet ladder is cleanly

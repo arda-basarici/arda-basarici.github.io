@@ -41,7 +41,7 @@ The labeler investigation compared **14 models across 32 full evaluation runs**,
 
 The scale investigation turned an intended sample into a census once measurement showed that the entire usable pool cost single-digit dollars. Durable caching, a purchase ledger, refusal-as-data, budget guards, and resumable execution allowed the buy to survive both a provider refusal and a live SQLite contention failure.
 
-The trust investigation anchored the system to a **250-review human reference**, calibrated an independent second annotator, audited a separate 1,000-review census sample, and uncovered a more important operational finding: identical temperature-zero requests moved by roughly **0.02–0.03 F1** across buy dates. The labeler is therefore treated as a point-in-time instrument, not a permanently stable piece of code.
+The trust investigation anchored the system to a **250-review human-adjudicated gold set**, calibrated an independent second annotator, audited a separate 1,000-review census sample, and uncovered a more important operational finding: identical temperature-zero requests moved by roughly **0.02–0.03 F1** across buy dates. The labeler is therefore treated as a point-in-time instrument, not a permanently stable piece of code.
 
 ## What it refuses to claim
 

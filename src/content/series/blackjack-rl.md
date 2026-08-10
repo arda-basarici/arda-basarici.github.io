@@ -15,7 +15,7 @@ demonstrates: >-
 order: 2
 ---
 
-Four studies, one experimental design: give a learning system a domain where the truth is
+Four studies, one experimental design: give a reinforcement-learning system a domain where the truth is
 exactly known, ask whether it can rediscover what we can prove — and then ask again, each time
 with a piece of the answer key taken away.
 
