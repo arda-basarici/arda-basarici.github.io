@@ -13,6 +13,8 @@ Two jobs in one repo:
 - **Project pages** (put these in posts — they carry the pitch, a social preview card, and route
   onward to report/code): `https://ardabasarici.dev/projects/<id>/`, e.g.
   `/projects/blackjack-betting/`, or `/projects/blackjack-rl/` for the whole series.
+- **Apps:** `https://ardabasarici.dev/apps/` — the live layer: deployed apps and side
+  projects; cards link out to the running things (list in `src/data/apps.ts`).
 - **Short redirects** (for PDF covers and links published before the project pages existed):
   `/blackjack-betting`, `/pathfinding`, … — full registry in REDIRECTS.md.
 

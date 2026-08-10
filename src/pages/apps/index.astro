@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { apps } from '../../data/apps';
+---
+
+<Base
+  title="Apps — Arda Başarıcı"
+  description="Live apps and side projects by Arda Başarıcı — deployed things you can open and use."
+>
+  <h1>Apps</h1>
+  <p class="lede">
+    The live layer: deployed apps and side projects, running right now. The stories behind
+    them, and the code, live in <a class="qlink fwd" href="/projects/">Projects</a>.
+  </p>
+
+  {
+    apps.map((app) => (
+      <a class="card app-row" href={app.url} target="_blank" rel="noopener">
+        {app.image && (
+          <span class="shot">
+            <Image
+              src={app.image}
+              alt={app.imageAlt ?? `${app.name} — screenshot`}
+              widths={[280, 560]}
+              sizes="(max-width: 560px) calc(100vw - 104px), 280px"
+            />
+          </span>
+        )}
+        <span class="app-text">
+          <h3>{app.name}</h3>
+          <p class="desc">{app.description}</p>
+        </span>
+      </a>
+    ))
+  }
+</Base>
+
+<style>
+  .lede {
+    color: var(--muted);
+    max-width: 60ch;
+    margin: 0 0 34px;
+  }
+  /* the whole card is the link — one destination, one tab stop; the card's own
+     hover lift is the affordance, so the texts carry no hover styling */
+  .app-row {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 24px;
+    text-decoration: none;
+    color: inherit;
+  }
+  /* the card leaves the site (↗), unlike project cards' in-site → */
+  .app-row h3::after {
+    content: ' ↗';
+    color: var(--blue);
+    font-size: 0.7em;
+  }
+  .app-text {
+    display: block;
+    flex: 1;
+    min-width: 0;
+  }
+  .app-text .desc {
+    margin-bottom: 0;
+  }
+  /* the app's own UI, framed: the dark screenshot needs a border to read as an image */
+  .shot {
+    display: block;
+    flex: 0 0 280px;
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  @media (max-width: 560px) {
+    .app-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .shot {
+      flex-basis: auto;
+    }
+  }
+</style>
