@@ -6,8 +6,8 @@ ogTags: [LLM Evaluation, Sampling, Deployment]
 blurb: >-
   What do Steam reviews actually praise and criticize and how much trust should you place in the answer? SteamLens is an evaluation-first review analysis system planned across four milestones and closed complete at the third: the report product is live. It turns unstructured reviews into measured, aspect-level evidence, with the labeler's quality, cost, and failure modes published beside the numbers.
 demonstrates: >-
-  Evaluation-first LLM engineering: a human-anchored gold set, an independently calibrated
-  judge model, bootstrap CIs on measured statistics, and an eval harness that gates CI —
+  Type a Steam game name and get an evidence-backed report of what players praise and criticize. Evaluation-first LLM engineering: a human-anchored gold set, an independently calibrated
+  judge model, bootstrap CIs on measured statistics, and an eval harness that gates CI,
   carried to production on a self-managed VPS: Docker behind Caddy and Cloudflare,
   approval-gated delivery, spend gates, the instrument's numbers shipped inside the product.
 order: 1
@@ -32,16 +32,15 @@ The rest was scoped the same way, one question at a time, each answered on the r
 second milestone answered how few reviews a report actually needs before its numbers stop
 moving, with the error bars' 95% promise measured rather than assumed. The third put the
 product behind a public URL: type a game name, watch the analysis narrate itself live, and
-read a report whose narrative cannot introduce numbers its own pipeline didn't compute —
-the instrument's error rates displayed in the report's own trust panel, admission gates
-deciding who may start a paid analysis, and a delivery pipeline that ships only what a
+read a report whose narrative cannot introduce numbers its own pipeline didn't compute.
+The instrument's error rates display in the report's own trust panel, admission gates
+decide who may start a paid analysis, and the delivery pipeline ships only what a
 human approved.
 
-**Milestones 1–3 — extraction and evaluation, the sampling study, deployment — are built,
+**Milestones 1–3 (extraction and evaluation, the sampling study, deployment) are built,
 measured, and live at [steamlens.ardabasarici.dev](https://steamlens.ardabasarici.dev).**
 The fourth, the grounded report-interrogation chat, is designed and deliberately deferred:
-taking it up is weighed against new work rather than assumed. This page said it would say a
-system is running when one is — one is.
+taking it up is weighed against new work rather than assumed.
 
 ## What it demonstrates
 

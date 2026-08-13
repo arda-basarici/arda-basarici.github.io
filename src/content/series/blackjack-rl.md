@@ -13,6 +13,8 @@ demonstrates: >-
   Evaluation-first ML end-to-end — instrument validation, reference-anchored audits,
   controlled ablations, adversarial self-falsification — Python, PyTorch, tabular and deep RL.
 order: 2
+links:
+  code: https://github.com/arda-basarici/blackjack-rl
 ---
 
 Four studies, one experimental design: give a reinforcement-learning system a domain where the truth is
