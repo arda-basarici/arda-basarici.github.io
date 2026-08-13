@@ -24,7 +24,7 @@ links:
 date: 2026-07-31
 ---
 
-SteamLens will eventually be deployed. Milestone 1, extraction and evaluation, is the system that decides whether the product’s numbers deserve to exist.
+SteamLens is deployed now; milestone 1, extraction and evaluation, is the system that decides whether the product’s numbers deserve to exist.
 
 The report follows four investigations: what the system should count, which model should do the reading, how a census can become a trustworthy artifact, and how the resulting numbers can be evaluated without letting the pipeline grade its own homework. The conclusion is the project’s central claim: the model call was the smallest part; the instrument around it was the work.
 
@@ -46,4 +46,4 @@ The trust investigation anchored the system to a **250-review human-adjudicated 
 
 ## What it refuses to claim
 
-The report does not claim that the labels are simply right; it measures their performance against human judgment. The chosen model is never called the best, since a stronger alternative performed better under matched conditions. Agreement between models is not passed off as accuracy, because human adjudication of the disagreements remains pending, and reviews are read as what they are: the people who chose to write one, not a representative sample of all players. Nothing is claimed to be deployed yet.
+The report does not claim that the labels are simply right; it measures their performance against human judgment. The chosen model is never called the best, since a stronger alternative performed better under matched conditions. Agreement between models is not passed off as accuracy, because human adjudication of the disagreements remains pending, and reviews are read as what they are: the people who chose to write one, not a representative sample of all players.
