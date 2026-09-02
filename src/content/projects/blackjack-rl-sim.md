@@ -5,7 +5,7 @@ ogSubtitle: Basic strategy and card counting, measured from the ground up
 ogTags: [Monte Carlo, Basic Strategy, Card Counting]
 summary: >-
   A from-scratch blackjack engine validated against published ground truth before anything was
-  built on it: ~80M hands, pluggable strategies, card counting, reproducible by construction.
+  built on it: ~90M hands, pluggable strategies, card counting, reproducible by construction.
   The measurement instrument the rest of the arc stands on.
 demonstrates: >-
   Simulation engineering, experiment design, and statistical honesty — Python, pytest,
@@ -14,7 +14,7 @@ series: blackjack-rl
 seriesOrder: 1
 seriesRole: the instrument
 seriesNote: >-
-  A self-validating engine, checked against published blackjack mathematics — ~80M hands that
+  A self-validating engine, checked against published blackjack mathematics — ~90M hands that
   every later claim is measured against.
 links:
   report: /reports/blackjack_analysis_report.pdf
@@ -35,7 +35,7 @@ counting systems (Hi-Lo, KO, Omega II), and casino rule sets swap independently.
 later made the RL work honest: every learned agent plugs in as a strategy object with no
 engine changes, directly comparable to every result here — same instrument, same terms. Runs
 are reproducible by construction: fixed seeds, independent random streams per strategy, and
-one command that regenerates all ~80 million hands.
+one command that regenerates all ~90 million hands.
 
 ## What the instrument showed
 
