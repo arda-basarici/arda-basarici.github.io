@@ -5,7 +5,7 @@ export type FeaturedEntry =
 
 export const featured: FeaturedEntry[] = [
   { kind: 'series', id: 'steam-lens' },
+  { kind: 'project', id: 'platform' },
   { kind: 'series', id: 'blackjack-rl' },
   { kind: 'project', id: 'pathfinding' },
-  { kind: 'project', id: 'steam-reviews' },
 ];

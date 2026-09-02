@@ -32,6 +32,7 @@ refresh its copy in `public/reports/` too.
 - `/pathfinding-code` → github.com/arda-basarici/pathfinding-ml
 - `/steam-reviews-code` → github.com/arda-basarici/steam-reviews
 - `/steam-lens-code` → github.com/arda-basarici/steam-lens
+- `/platform-code` → github.com/arda-basarici/platform
 
 ## Reserved, not yet live
 - `/apps/steam-lens` — the SteamLens deployment, when M3 ships. No stub exists yet; a live

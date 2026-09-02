@@ -1,5 +1,6 @@
 ---
 slug: pathfinding
+order: 4
 title: "Learning to Guess the Distance"
 seoTitle: "Learning an A* Heuristic with Gradient Boosting"
 ogTags: [Gradient Boosting, A* Search, Distribution Shift]
