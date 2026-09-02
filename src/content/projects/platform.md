@@ -11,7 +11,7 @@ summary: >-
   the host rebuilt from a blank machine by a playbook, and a rebuild-and-restore drill from
   nothing in about an hour.
 demonstrates: >-
-  Infrastructure as code across Cloudflare, AWS and a bare VPS (Terraform, Ansible), hand-made
+  Infrastructure as code across Cloudflare, AWS and a self-managed VPS (Terraform, Ansible), hand-made
   resources adopted on zero-diff plans, a secrets policy with a tested recovery path, and
   recovery treated as a discipline: a timed rebuild drill, a monthly restore check, an alarm
   path proven by forcing it.

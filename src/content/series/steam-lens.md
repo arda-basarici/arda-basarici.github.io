@@ -4,7 +4,7 @@ title: 'SteamLens'
 seoTitle: 'SteamLens: LLM Aspect Extraction from Steam Reviews'
 ogTags: [LLM Evaluation, Sampling, Deployment]
 blurb: >-
-  What do Steam reviews actually praise and criticize and how much trust should you place in the answer? SteamLens is an evaluation-first review analysis system planned across four milestones and closed complete at the third: the report product is live. It turns unstructured reviews into measured, aspect-level evidence, with the labeler's quality, cost, and failure modes published beside the numbers.
+  What do Steam reviews actually praise and criticize and how much trust should you place in the answer? SteamLens is an evaluation-first review analysis system planned as four milestones; the first three are built, measured and live, and the fourth is deliberately deferred. It turns unstructured reviews into measured, aspect-level evidence, with the labeler's quality, cost, and failure modes published beside the numbers.
 demonstrates: >-
   Type a Steam game name and get an evidence-backed report of what players praise and criticize. Evaluation-first LLM engineering: a human-anchored gold set, an independently calibrated
   judge model, bootstrap CIs on measured statistics, and an eval harness that gates CI,
