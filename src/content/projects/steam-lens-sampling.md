@@ -24,7 +24,7 @@ links:
 date: 2026-08-05
 ---
 
-Milestone 1 left SteamLens with a census: 135,260 labeled reviews across 49 games, where the true share of anything is computable. A live product cannot buy that per query, and Steam offers no uniform random access. SteamLens does not pretend that it does: the resulting bias is measured, and its cost is included in the reported uncertainty. Milestone 2 spends the census as an answer key, racing every implementable way of fetching, sizing, and bounding a sample offline against ground truth, and replaces the founding plan's guesses with measurements, or with a named refusal to claim.
+Milestone 1 left SteamLens with a 135,260-review census across 49 games, where the true share of anything is computable. A live product cannot buy that per query, and Steam offers no uniform random access. SteamLens does not pretend that it does: the resulting bias is measured, and its cost is included in the reported uncertainty. Milestone 2 spends the census as an answer key, racing every implementable way of fetching, sizing, and bounding a sample offline against ground truth, and replaces the founding plan's guesses with measurements, or with a named refusal to claim.
 
 ## The findings, first
 

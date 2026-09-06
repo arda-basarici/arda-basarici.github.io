@@ -69,6 +69,8 @@ call, after list pricing was measured overstating costs roughly fivefold), and e
 joins its job, so the public ops dashboard's spend figures reconcile against the provider's
 bill. Live reports settle at $0.007–0.017.
 
+**Update (2026-09-06).** DeepSeek moved to peak/off-peak pricing at higher rates at 16:00 UTC on 2026-08-16. The ledger behind the ops dashboard still prices calls at the pre-change flat table it was reconciled against on 2026-08-09, so its figures, and the $0.007–0.017 band first published from them, are estimates that understate the bill by about 2× off-peak and about 4× in peak hours (reconciled against the provider's bill on 2026-09-06). The $3.80 census was settled on 2026-07-20 at the old prices and stands. The rate rule is being rebuilt to price each call by its applicable rate period; until then, the dashboard should be read as a pre-repricing cost estimate.
+
 ## The box and the pipeline
 
 The app runs as a Docker stack on a small self-managed VPS behind one box-owned Caddy, with
