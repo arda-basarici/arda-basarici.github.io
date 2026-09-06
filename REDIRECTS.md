@@ -19,6 +19,11 @@ route or `/apps/…` entry to avoid collisions.
 Canonical PDFs live in the project repos; when one is re-rendered (e.g. the cover-link fix),
 refresh its copy in `public/reports/` too.
 
+## Resume
+- `/resume` → /resume/Arda_Basarici_Resume.pdf — the public resume (no phone), the file
+  beside the stub; source and build in the career stream (`python build.py --public`). The
+  saved filename matches the one sent to recruiters.
+
 ## Site pages (claimed by the Astro site, not redirects)
 - `/projects` (+ `/projects/<slug>`), `/about`, `/writings` (+ `/writings/<slug>`)
 - reserved for future app redirects: `/apps/<name>`
