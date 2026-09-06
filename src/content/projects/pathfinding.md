@@ -34,7 +34,7 @@ opposite effects and the average reports that nothing happened. The truth lives 
 groups.
 
 The fix was one feature: global obstacle density — not a better estimate, a **regime tag**
-telling the model which world it's in. With it: **17.3% fewer nodes at a 0.2% gap, 97% of
+telling the model which world it's in. With it, at the report's 50/50 maze mix: **17.3% fewer nodes at a 0.2% gap, 97% of
 mazes solved optimally**, stable across seeds and confirmed on a 10,000-maze run. Three
 features end up doing the work of seven.
 
