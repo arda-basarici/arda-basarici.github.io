@@ -40,7 +40,7 @@ Agent does that investigation across those systems and drafts a coverage plan wi
 record behind each claim: this person covers Thursday's client call, that ticket moves
 to someone who holds the skill, this need has no qualified cover and the plan says so.
 The plan says where it stands: who is viable, what it assigns, and where an unknown or
-a conflict remains. The human approves or declines; the agent never makes the
+a conflict remains. A human approves the coverage plan; the agent never makes the
 employment decision.
 
 The question the project is built around is how anyone would know the plan is right.
@@ -98,7 +98,8 @@ In the loop, four decisions are each tied to the failure they prevent:
 - The event log is the authority: recovery replays it, the audit reads it, and the run's
   export is built from it, so a crashed worker resumes from what was recorded.
 - A claim fences a generation: after a new claim, the previous worker authorizes nothing
-  and appends no outcome, and a request it had already sent stays an unresolved send.
+  and appends no outcome, and a request it had already sent stays unresolved with its
+  worst-case allocation retained.
 - Budget before inference: every model call is authorized against the budget before it
   is sent, and an attempt that closes without an export lists its known consumption, its
   retained liability and their total.
