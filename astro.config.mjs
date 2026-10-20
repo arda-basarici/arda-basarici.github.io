@@ -16,6 +16,7 @@ const reportPdfs = [
   'blackjack_analysis_report.pdf',
   'the-instrument-around-the-model.pdf',
   'sampling-without-random-access.pdf',
+  'where-the-single-call-stops.pdf',
 ].map((f) => `https://ardabasarici.dev/reports/${f}`);
 
 export default defineConfig({
