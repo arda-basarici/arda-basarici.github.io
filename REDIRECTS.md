@@ -38,7 +38,9 @@ refresh its copy in `public/reports/` too.
 - `/steam-reviews-code` → github.com/arda-basarici/steam-reviews
 - `/steam-lens-code` → github.com/arda-basarici/steam-lens
 - `/platform-code` → github.com/arda-basarici/platform
+- `/leave-impact-agent-code` → github.com/arda-basarici/leave-impact-agent
 
 ## Reserved, not yet live
 - `/apps/steam-lens` — the SteamLens deployment, when M3 ships. No stub exists yet; a live
   link goes up only when there is something behind it. Claimed here so nothing else takes it.
+- `/apps/leave-agent` — the Leave Impact Agent demo, when its M3 ships. Same rule: claimed, no stub.

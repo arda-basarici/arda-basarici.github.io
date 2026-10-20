@@ -15,7 +15,7 @@ demonstrates: >-
   resources adopted on zero-diff plans, a secrets policy with a tested recovery path, and
   recovery treated as a discipline: a timed rebuild drill, a monthly restore check, an alarm
   path proven by forcing it.
-order: 2
+order: 3
 links:
   code: https://github.com/arda-basarici/platform
 date: 2026-09-02

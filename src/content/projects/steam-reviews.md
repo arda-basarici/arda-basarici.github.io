@@ -1,6 +1,6 @@
 ---
 slug: steam-reviews
-order: 5
+order: 6
 title: "Steam Review Intelligence"
 seoTitle: "What Does a Steam Rating Measure? 298k Reviews Analyzed"
 ogTags: [Data Pipeline, Validation, 298k Reviews]

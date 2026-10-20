@@ -12,7 +12,7 @@ blurb: >-
 demonstrates: >-
   Evaluation-first ML end-to-end — instrument validation, reference-anchored audits,
   controlled ablations, adversarial self-falsification — Python, PyTorch, tabular and deep RL.
-order: 3
+order: 4
 links:
   code: https://github.com/arda-basarici/blackjack-rl
 ---
