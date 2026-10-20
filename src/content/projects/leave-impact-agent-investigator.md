@@ -2,7 +2,8 @@
 slug: leave-impact-agent-investigator
 title: 'Where the Single Call Stops'
 seoTitle: 'Evaluating an LLM Agent Against Full-Context and Single-Shot Baselines Under a Fixed Output Budget'
-ogTags: [LLM Agent, Preregistered Evaluation, Output Budget, LangGraph]
+ogSubtitle: An agent against one-call readers under one output budget
+ogTags: [LLM Agent, Preregistered, Output Budget, LangGraph]
 summary: >-
   Does an agent's reading loop earn its cost against one call shown every document?
   Four systems answered the same thirty leave scenarios on a constructed organization,
@@ -37,6 +38,31 @@ evidence behind each claim. The report measures whether its reading loop earns i
 against three simpler ways of producing the same plan, on an organization built so that
 the right answer is known.
 
+## What was found
+
+A scenario counts as correct whole when every required claim is present and right,
+nothing unexpected is claimed, and no finding stands against the plan.
+
+| System | Base | Padded |
+|---|---:|---:|
+| Investigator | 24 of 30 | 24 of 30 |
+| Full context, one call | 30 of 30 | 14 of 30 |
+| Single shot, one retrieval then one call | 22 of 30 | 10 of 30 |
+| Rules only, no model | 10 of 30 | 10 of 30 |
+
+The rules pass exactly the structured tier and nothing else, so twenty scenarios are
+where any model-reading system can differ. The investigator misses the same six at both
+levels.
+
+At the padded level the single call stops at its output allowance on 24 of its 30
+calls, the cap on what it may write and not on what it may read, and 15 of its 16
+failures coincided with a stopped call; one did not. The registered primary comparison,
+the investigator against full context at the padded level, is an observed difference of
+33 percentage points of scenarios with a paired interval of 20 to 47 points at 95
+percent. The investigator wrote 47,806 output tokens across its thirty padded runs
+against full context's 211,989, because a loop states the facts its searches returned
+where the one call must state everything it was shown.
+
 ## Four systems, one answer key
 
 Every system begins with the same frozen prefetch of the structured records and
@@ -57,25 +83,17 @@ comparison was registered before the measurement world existed. The evaluation r
 once at two corpus levels, the base corpus and a padded one: 240 runs for $9.96 in
 model calls.
 
-## What was found
+## Where the investigator still fails
 
-A scenario counts as correct whole when every required claim is present and right,
-nothing unexpected is claimed, and no finding stands against the plan.
-
-- **Base level:** full context 30 of 30, the investigator 24, single shot 22, rules
-  only 10. The rules pass exactly the structured tier and nothing else, so twenty
-  scenarios are where any model-reading system can differ.
-- **Padded level:** the investigator 24 of 30 again, with the same six misses; full
-  context 14, single shot 10, rules only 10.
-
-At the padded level the single call stops at its output allowance on 24 of its 30
-calls, the cap on what it may write and not on what it may read, and 15 of its 16
-failures coincided with a stopped call; one did not. The registered primary comparison,
-the investigator against full context at the padded level, is an observed difference of
-33 percentage points of scenarios with a paired interval of 20 to 47 points at 95
-percent. The investigator wrote 47,806 output tokens across its thirty padded runs
-against full context's 211,989, because a loop states the facts its searches returned
-where the one call must state everything it was shown.
+The investigator's six misses are the same six scenarios at both levels, all in the
+fragmented tier, where the needed facts live only in prose. Its mechanism measure
+follows each needed fact through four stages: whether a document carrying it was
+returned to the run, whether the model emitted the fact, whether the record admitted
+it, and whether the rules could use it. At the padded level the stages read 31, 26, 26,
+25 of 31 needed facts. Every needed carrier was returned, so retrieval is complete and
+the losses occur after it: five facts were returned and not emitted, and one was emitted
+and admitted but the rules could not use it. Six missing facts and six failed scenarios
+are different units, and the equal totals are a coincidence the report does not lean on.
 
 ## How the result was held to account
 

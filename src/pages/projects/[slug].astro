@@ -221,6 +221,33 @@ const next = project ? tour[(at + 1) % tour.length] : null;
     padding: 1px 5px;
     font-size: 0.9em;
   }
+  /* Result tables in page bodies: hairline rows, the same width cap as the prose.
+     Column alignment comes from the markdown (Astro emits it as an inline style);
+     every column after the label column is treated as numeric. */
+  .body :global(table) {
+    width: 100%;
+    max-width: 64ch;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 14px 0 18px;
+  }
+  .body :global(th),
+  .body :global(td) {
+    padding: 7px 10px 7px 0;
+    border-bottom: 1px solid var(--hair);
+    vertical-align: top;
+  }
+  .body :global(th) {
+    color: var(--bright);
+    font-weight: 600;
+    text-align: left;
+  }
+  .body :global(th:not(:first-child)),
+  .body :global(td:not(:first-child)) {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding-left: 14px;
+  }
   .arc-nav {
     margin-top: 24px;
   }

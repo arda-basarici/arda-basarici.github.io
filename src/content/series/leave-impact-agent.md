@@ -2,7 +2,7 @@
 slug: leave-impact-agent
 title: 'Leave Impact Agent'
 seoTitle: 'Leave Impact Agent: An LLM Agent Evaluated on a Constructed Organization'
-ogTags: [LLM Agent, Ground Truth by Construction, Preregistered Evaluation]
+ogTags: [LLM Agent, Ground Truth by Construction, Preregistered]
 blurb: >-
   When an employee goes on leave, someone has to work out what the absence affects and
   who can cover it. The Leave Impact Agent reads the organization's HR system, issue
@@ -39,8 +39,9 @@ tracker, the calendar and documents nobody reads until they must. The Leave Impa
 Agent does that investigation across those systems and drafts a coverage plan with the
 record behind each claim: this person covers Thursday's client call, that ticket moves
 to someone who holds the skill, this need has no qualified cover and the plan says so.
-Every unknown is stated as unknown. The human approves or declines; the agent never
-makes the employment decision.
+The plan says where it stands: who is viable, what it assigns, and where an unknown or
+a conflict remains. The human approves or declines; the agent never makes the
+employment decision.
 
 The question the project is built around is how anyone would know the plan is right.
 There is no real workforce to label, and a benchmark labeled after the fact inherits
@@ -73,11 +74,13 @@ was whether that loop earns its cost against three simpler ways of producing the
 plan: the rules alone over the structured records, one retrieval then one call, and one
 call shown every document. The comparison was registered before the measurement world
 existed, the world was drawn from a secret seed, and the evaluation ran once: 240 runs
-for $9.96 in model calls. The result is on the investigator milestone's page, with the
-report.
+for $9.96 in model calls. The result is on
+[the investigator milestone's page](/projects/leave-impact-agent-investigator/), with
+[the report](/reports/where-the-single-call-stops.pdf).
 
 **Milestone 1, the world, is built and audited; milestone 2, the investigator, is built
-and measured, and the report is on its page. Milestone 3, the demo, is under way:** a replay-first
+and measured, and the report is on [its page](/projects/leave-impact-agent-investigator/).
+Milestone 3, the demo, is under way:** a replay-first
 surface over the golden world behind a public URL, live runs capped and off by default.
 A conversation over the same evidence base is committed strictly after it.
 
@@ -88,13 +91,23 @@ not labeled, and the consistency check that every scenario passes shares its rul
 every system, so the audits are the check on the rules. The evaluator runs under its own
 identity, reads exports and never re-reads a vendor. The registration was frozen at a
 commit before the world was drawn, and it reads a comparison as an interval, never as a
-test of superiority. In the loop, four decisions are each tied to the failure they
-prevent: the event log as authority, a claim that fences the previous worker's writes,
-every model call authorized against the budget before it is sent, and the evaluator
-isolated from the systems it grades; before any reported run the worker was killed at
-every boundary two reference runs cross, 469 rows in all, and recovered as forecast once
-two forecasts had been corrected. The
-runs themselves went through the deployed lifecycle: a workflow sends each step to the
-instance, a human approves in a private session when the policy asks for one, and the
-export is published where the evaluator reads it. The host, its network and the deploy
-role are code in the platform repository.
+test of superiority.
+
+In the loop, four decisions are each tied to the failure they prevent:
+
+- The event log is the authority: recovery replays it, the audit reads it, and the run's
+  export is built from it, so a crashed worker resumes from what was recorded.
+- A claim fences a generation: after a new claim, the previous worker authorizes nothing
+  and appends no outcome, and a request it had already sent stays an unresolved send.
+- Budget before inference: every model call is authorized against the budget before it
+  is sent, and an attempt that closes without an export lists its known consumption, its
+  retained liability and their total.
+- The evaluator is isolated: it runs under its own identity, reads exports and never
+  re-reads a vendor.
+
+Before any reported run the worker was killed at every boundary two reference runs
+cross, 469 rows in all, and recovered as forecast once two forecasts had been corrected.
+The runs themselves went through the deployed lifecycle: a workflow sends each step to
+the instance, a human approves in a private session when the policy asks for one, and
+the export is published where the evaluator reads it. The host, its network and the
+deploy role are code in the platform repository.
