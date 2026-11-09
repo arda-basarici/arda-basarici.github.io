@@ -9,7 +9,7 @@ blurb: >-
   tracker, calendar and documents and drafts that coverage plan with the evidence behind
   each claim, for a human to approve. It is measured on a synthetic organization whose
   answer key was written before any system ran; the world and the investigator are
-  built and measured, the public demo is under way.
+  built and measured, and the demo is public.
 demonstrates: >-
   An LLM agent over real external tools (Frappe HR, Jira, Google Calendar) with the
   evaluation designed first: a generator that constructs the benchmark and seals its
@@ -19,13 +19,9 @@ demonstrates: >-
   approval-gated delivery.
 order: 2
 links:
+  app: https://leave-agent.ardabasarici.dev
   code: https://github.com/arda-basarici/leave-impact-agent
 roadmap:
-  - title: 'The demo'
-    note: >-
-      A public, replay-first surface over the golden world: the report view with its
-      evidence, the audit trail, the narration timeline; live runs capped and off by
-      default.
   - title: 'The conversation'
     note: >-
       Questions over the same evidence base, answered with the same grounding and graded
@@ -78,11 +74,18 @@ for $9.96 in model calls. The result is on
 [the investigator milestone's page](/projects/leave-impact-agent-investigator/), with
 [the report](/reports/where-the-single-call-stops.pdf).
 
+The third milestone put the investigator in public, at
+[leave-agent.ardabasarici.dev](https://leave-agent.ardabasarici.dev). Thirty recorded
+runs on the golden world are served as reports, audit trails and timelines read from the
+runs' own records, beside the results of the measurement. A visitor can start a live run
+and then approve or decline the plan it drafts: five runs a day, two an address, each
+charged to a ledger the site shows. What was built and what it does not claim are on
+[the demo milestone's page](/projects/leave-impact-agent-demo/).
+
 **Milestone 1, the world, is built and audited; milestone 2, the investigator, is built
-and measured, and the report is on [its page](/projects/leave-impact-agent-investigator/).
-Milestone 3, the demo, is under way:** a replay-first
-surface over the golden world behind a public URL, live runs capped and off by default.
-A conversation over the same evidence base is committed strictly after it.
+and measured, and the report is on [its page](/projects/leave-impact-agent-investigator/);
+milestone 3, the demo, is public.** A conversation over the same evidence base is
+committed strictly after it.
 
 ## What it demonstrates
 

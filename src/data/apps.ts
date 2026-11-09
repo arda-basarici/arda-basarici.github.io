@@ -25,4 +25,10 @@ export const apps: AppEntry[] = [
     image: steamlensShot,
     imageAlt: 'The steam-lens landing page: type a game name, get the report.',
   },
+  {
+    name: 'Leave Impact Agent',
+    description:
+      "Read thirty recorded investigations of an employee's leave, or start a live one and approve or decline its plan.",
+    url: 'https://leave-agent.ardabasarici.dev',
+  },
 ];
