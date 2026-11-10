@@ -71,8 +71,8 @@ documents reach the model and how. *Rules only* reads the prefetch and no docume
 calls no model. *Single shot* runs one fixed full-text query, then one model call that
 states facts from what came back. *Full context* puts every document of the corpus into
 one call. The *investigator* runs a tool loop, reading in turns through role-scoped
-tools and a full-text search over document sections, then is asked once, at the end, to
-state the facts it read with the words they came from. One model, Claude Haiku 4.5,
+tools and a full-text search over document sections. It may state a fact, with the words
+it came from, in any reading turn, and a final call offers the fact tool alone. One model, Claude Haiku 4.5,
 played every role in every system, at temperature zero, with the same 8,192-token
 output maximum per call.
 
