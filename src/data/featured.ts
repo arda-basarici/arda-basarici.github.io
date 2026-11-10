@@ -4,8 +4,8 @@ export type FeaturedEntry =
   { kind: 'series'; id: string } | { kind: 'project'; id: string };
 
 export const featured: FeaturedEntry[] = [
-  { kind: 'series', id: 'steam-lens' },
   { kind: 'series', id: 'leave-impact-agent' },
+  { kind: 'series', id: 'steam-lens' },
   { kind: 'project', id: 'platform' },
   { kind: 'series', id: 'blackjack-rl' },
 ];
