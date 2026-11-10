@@ -26,11 +26,14 @@ import portrait from '../assets/portrait.jpeg';
       evaluation-first: deterministic where a model isn't needed, measured against
       ground truth where one is, and open about the error that remains. I run two of
       them in public.
+    </p>
+
+    <p>
       The <a class="qlink" href="https://leave-agent.ardabasarici.dev">Leave Impact Agent</a> reads
       an organization's HR system, issue tracker, calendar and documents, works out what
       a leave affects and drafts a coverage plan for a person to approve; it is graded
-      against a synthetic organization generated together with its answer
-      key. <a class="qlink" href="https://steamlens.ardabasarici.dev">SteamLens</a> analyzes
+      against the answer key generated together with its synthetic
+      organization. <a class="qlink" href="https://steamlens.ardabasarici.dev">SteamLens</a> analyzes
       Steam reviews and publishes its evidence, its sampling uncertainty and its measured
       error rates. I built both end to end: the evaluation data, the backend, the spend
       controls and the deployment.
@@ -76,9 +79,9 @@ import portrait from '../assets/portrait.jpeg';
     </p>
 
     <ul>
-      <li>A number with no baseline and no error bar isn't a result yet.</li>
+      <li>An estimate with no baseline and no error bar isn't a result yet.</li>
       <li>A conclusion is earned by the experiment that could have falsified it.</li>
-      <li>Negative results are findings, and I publish them as such: the Leave Impact Agent's own report shows a single full-context call scoring higher than it on the smaller corpus, 30 scenarios to 24, beside the agent's 24 to 14 on the larger.</li>
+      <li>Negative results are findings, and I publish them as such: the Leave Impact Agent's own <a class="qlink" href="https://github.com/arda-basarici/leave-impact-agent/blob/main/report/where-the-single-call-stops.pdf">report</a> shows the simpler single-call baseline scoring higher than the agent on the smaller corpus.</li>
       <li>Published runs carry their seed, config and code version, and the model outputs they used are stored alongside them.</li>
       <li>Complexity must earn its place: no framework or layer that doesn't demonstrably buy something.</li>
     </ul>
@@ -86,8 +89,8 @@ import portrait from '../assets/portrait.jpeg';
     <p>
       I use Claude Code daily. I work through a system's shape with it and make the
       decisions; it writes much of the code, the tests and the documentation drafts, and a
-      change is accepted only after I have reviewed it and tests, CI and expected
-      behaviour pass.
+      change is accepted only after I have reviewed it, the tests and CI pass, and its
+      behaviour is what I expected.
     </p>
 
     <h2>Current areas of focus</h2>
@@ -99,13 +102,9 @@ import portrait from '../assets/portrait.jpeg';
     </ul>
 
     <p>
-      Earlier work in reinforcement learning, simulation and data analysis is on the
-      projects page.
-    </p>
-
-    <p>
       I build in public: <a class="qlink fwd" href="/projects/">projects
-      and technical reports</a> here, and posts
+      and technical reports</a> here, the earlier work in reinforcement learning,
+      simulation and data analysis among them, and posts
       on <a class="qlink" href="https://www.linkedin.com/in/ardabasarici">LinkedIn</a> and <a
         class="qlink"
         href="https://x.com/ardabasarici">X</a>, including the mistakes, dead ends, and
