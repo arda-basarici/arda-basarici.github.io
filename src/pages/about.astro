@@ -24,36 +24,26 @@ import portrait from '../assets/portrait.jpeg';
     <p>
       I'm an AI engineer with a mathematics background. I build LLM systems
       evaluation-first: deterministic where a model isn't needed, measured against
-      ground truth where one is, and open about the error that remains. My flagship
-      project, <a class="qlink" href="https://steamlens.ardabasarici.dev">SteamLens</a>,
-      is a live LLM app that analyzes Steam reviews and cites its own measured
-      accuracy, evaluated against a human-adjudicated gold set before launch. I'm now
-      building an agent system evaluated the same way, inside a synthetic organization
-      whose true answers are known by construction.
+      ground truth where one is, and open about the error that remains. I run two of
+      them in public.
+      The <a class="qlink" href="https://leave-agent.ardabasarici.dev">Leave Impact Agent</a> reads
+      an organization's HR system, issue tracker, calendar and documents, works out what
+      a leave affects and drafts a coverage plan for a person to approve; it is graded
+      against a synthetic organization generated together with its answer
+      key. <a class="qlink" href="https://steamlens.ardabasarici.dev">SteamLens</a> analyzes
+      Steam reviews and publishes its evidence, its sampling uncertainty and its measured
+      error rates. I built both end to end: the evaluation data, the backend, the spend
+      controls and the deployment.
     </p>
 
     <p>
-      Based in Turkey (UTC+3) and currently looking: open to remote roles (contract or
-      EOR) and to relocation. Email is the fastest way to reach me;
-      the <a class="qlink" href="/resume/Arda_Basarici_Resume.pdf">resume</a> is a two-page PDF.
+      Based in Turkey (UTC+3) and currently looking for AI/LLM engineering roles
+      involving evaluation, backend integration and deployment: open to remote roles
+      (contract or EOR) and to
+      relocation. <a class="qlink" href="mailto:ardabasarici@gmail.com">Email</a> is the
+      fastest way to reach me;
+      the <a class="qlink" href="/resume/Arda_Basarici_Resume.pdf">resume</a> is a PDF.
     </p>
-
-    <h2>How I work</h2>
-
-    <p>
-      What interests me most isn't just finding an answer, but understanding the structure
-      underneath it: what assumptions it depends on, what information it preserves, and whether
-      the conclusions are actually justified by the evidence. In practice:
-    </p>
-
-    <ul>
-      <li>A number with no baseline and no error bar isn't a result yet.</li>
-      <li>A conclusion is earned by the experiment that could have falsified it.</li>
-      <li>Negative results are findings, and I publish them as such.</li>
-      <li>Published runs carry their seed, config and code version, and the model outputs they used are stored alongside them.</li>
-      <li>Complexity must earn its place: no framework or layer that doesn't demonstrably buy something.</li>
-      <li>Claude Code daily as a design and drafting partner: I work through system shape with it, make the decisions, then build incrementally; each change is accepted only after tests, CI and expected behaviour pass.</li>
-    </ul>
 
     <h2>How I got here</h2>
 
@@ -77,15 +67,41 @@ import portrait from '../assets/portrait.jpeg';
       care about most.
     </p>
 
+    <h2>How I work</h2>
+
+    <p>
+      What interests me most isn't just finding an answer, but understanding the structure
+      underneath it: what assumptions it depends on, what information it preserves, and whether
+      the conclusions are actually justified by the evidence. In practice:
+    </p>
+
+    <ul>
+      <li>A number with no baseline and no error bar isn't a result yet.</li>
+      <li>A conclusion is earned by the experiment that could have falsified it.</li>
+      <li>Negative results are findings, and I publish them as such: the Leave Impact Agent's own report shows a single full-context call scoring higher than it on the smaller corpus, 30 scenarios to 24, beside the agent's 24 to 14 on the larger.</li>
+      <li>Published runs carry their seed, config and code version, and the model outputs they used are stored alongside them.</li>
+      <li>Complexity must earn its place: no framework or layer that doesn't demonstrably buy something.</li>
+    </ul>
+
+    <p>
+      I use Claude Code daily. I work through a system's shape with it and make the
+      decisions; it writes much of the code, the tests and the documentation drafts, and a
+      change is accepted only after I have reviewed it and tests, CI and expected
+      behaviour pass.
+    </p>
+
     <h2>Current areas of focus</h2>
 
     <ul>
-      <li>LLM and agent systems, and their evaluation</li>
-      <li>Machine learning and reinforcement learning</li>
-      <li>Data analysis and statistical reasoning</li>
-      <li>Experiment design and simulation</li>
-      <li>Production AI systems: deployment and operation</li>
+      <li>LLM applications and agent workflows</li>
+      <li>Evaluation and experiment design</li>
+      <li>Backend integration, deployment and operation</li>
     </ul>
+
+    <p>
+      Earlier work in reinforcement learning, simulation and data analysis is on the
+      projects page.
+    </p>
 
     <p>
       I build in public: <a class="qlink fwd" href="/projects/">projects
